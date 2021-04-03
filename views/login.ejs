@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title> MMT</title>
+    <meta name="author" content="Codeconvey" />
+    
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"</link>
+    <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
+    <style>
+      
+
+* {margin: 0; padding: 0}
+    
+    body{
+        font-family: 'Arial', sans-serif;
+       
+        background-size: 100%;
+        overflow-x:hidden;
+        
+        
+    }
+    .codehim-form{
+        max-width: 400px;
+        min-height: 400px;
+        box-sizing: border-box;
+        background: rgba(255, 255, 255);
+        box-shadow: 4px 2px 16px rgba(0, 0, 0, 0.4);
+        border-radius: 8px;
+        margin-left:50px;
+        padding: 25px;
+        color: #414141;
+            
+    }
+    .cm-input{
+        display: block;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%; 
+        margin-top:2px;
+        margin-bottom:20px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        
+        
+    }
+    .cm-input:focus{
+        outline: 0;
+        border-color: #f9cb81;
+        
+    }
+    .cm-input:invalid{
+        border-color: #e41b17;
+        
+    }
+    
+    /* Gradient Background */
+    .gr-bg{
+        background-color: #7fcec5;
+background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
+        
+    }
+    
+    
+    /* Login Button Design */
+    
+    .btn-login{
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: 0;
+        color: #fff;
+        border-radius: 20px;
+        cursor: pointer;
+        margin-bottom:10px;
+        
+    }
+    .btn-login:focus{
+        outline: 0;
+    }
+    
+    .btn-login:hover{
+        opacity: 0.8;
+        transition: .3s;
+    }
+    
+    /* For, tiele */
+    .form-title{
+        padding: 12px;
+        text-align: center;
+        position: relative;
+        
+        
+    }
+    .form-title h2{
+        background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+    }
+    .form-title .user-icon{
+        position: absolute;
+        
+        font-size: 42px;
+        color: #fff;
+        width: 90px;
+        height: 90px;
+        line-height: 90px;
+        text-align: center;
+        border-radius: 45px;
+        top: -60px;
+        left: -45px;
+        
+    }
+
+
+
+    @media only screen and (min-width: 990px){
+            .doc-png img{
+                width:800px;height:750px;
+                margin-left: 5vh;
+            }
+            .body{
+                overflow-x: hidden !important;
+            }
+            .c1{
+                margin-left:155px;
+            }
+.codehim-form{
+        margin-bottom: 10vh !important;
+        text-align: center;
+        margin-left: 8vw;
+        width: 400px;
+        justify-content: space-around !important;
+}
+    }
+ 
+    @media only screen and (max-width: 824px) {
+        .doc-png{
+            display: none !important ;     
+            }
+            .body{
+                overflow-x: hidden !important;
+            }
+
+.codehim-form{
+        margin-bottom: 10vh !important;
+        text-align: center;
+        margin: 5vh auto;
+        width: 80%;
+        justify-content: space-around !important;
+}
+
+    }
+
+    @media only screen 
+  and (min-width: 751px) 
+  and (max-width: 824px) 
+ {
+    .doc-png{
+            display: none !important ;     
+            }
+            .body{
+                overflow-x: hidden !important;
+            }
+
+.codehim-form{
+        margin-bottom: 10vh !important;
+        text-align: center;
+        margin: 5vh auto;
+        margin-left: 20vw;
+        width: 100%;
+        justify-content: space-around !important;
+}
+ }
+
+    @media only screen 
+  and (min-width: 824px) 
+  and (max-width: 990px) 
+ {
+
+#pic{
+        z-index: 5;
+        margin-left: -5vh;
+        width: 550px;
+        height: 700px;
+}
+.row{
+    display: flex !important;
+}
+.cl{
+                margin-left:155px ;
+            }
+.codehim-form{
+    flex: 3 !important;
+    height: 100%;
+    width: 600px;
+    z-index: 10 ;
+}
+#doc-png{
+    flex: 2 !important;
+    z-index: 1;
+}
+.doc-png::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+}
+
+    </style>
+	
+</head>
+
+<body>
+    
+      <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<% if(error.length>0 ){%>
+<div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
+<% }if(success.length>0){%>
+<div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
+<% } %> 
+		
+<div class="ScriptTop">
+    <div class="rt-container">
+        <div class="col-rt-4" id="float-right">
+ 
+            <!-- Ad Here -->
+            
+        </div>
+        <div class="col-rt-2">
+            
+        </div>
+    </div>
+</div>
+
+<header class="ScriptHeader">
+    <div class="rt-container">
+    	<div class="col-rt-12">
+        	<div class="rt-heading">
+            	
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div class=" row" >
+        <div class="cointainer">
+            <div class="col-lg-3 col-md-3"></div>
+          <div class="col-lg-6" style="margin-top:150px;z-index: 50;">
+              <div class="Scriptcontent" >
+              
+    <form class="codehim-form" action="/locklogin" method="POST" style="z-index: 50;">
+        <div class="form-title">
+            <div class="user-icon gr-bg">
+            <i class="fa fa-user"></i>
+            </div>
+     <h2> <strong>Student Login </strong> </h2>
+            </div>
+            
+    
+    <label for="email"><i class="fa fa-user" aria-hidden="true"></i> Username:</label>
+        <input type="text" id="email" class="cm-input" placeholder="Enter your username" required name="username">
+        
+        <label for="pass"><i class="fa fa-lock"></i> Password:</label>
+        <input id="pass" type="password" class="cm-input" placeholder="Enter your password" required name="password">
+        <button type="submit" class="btn-login  gr-bg" id="submit" >Login</button>
+        
+        
+        <a href="/frgtpassEmail" class="cl" style=" text-align: center;">Forgot Password?</a>
+    
+        <br>
+        <a href="/signup" class="cl" style=" text-align: center;">Sign Up</a>
+        
+        
+    </form>
+    		
+    		</div>
+		</div>
+		</div>
+		
+    </div>
+
+    <script type="text/javascript">
+    
+        
+    </script>
+
+	</body>
+	
+</html>

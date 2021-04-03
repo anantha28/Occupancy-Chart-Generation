@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<style>
+  
+  body {
+  	 background-color: #7fcec5;
+background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
+	margin:  0;
+}
+.page-content {
+	width: 100%;
+	margin:  0 auto;
+	  background-color: #7fcec5;
+background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
+	display: flex;
+	display: -webkit-flex;
+	justify-content: center;
+	align-items: center;
+}
+.form-v5-content  {
+	background: #fff;
+	width: 670px;
+	border-radius: 8px;
+	margin: 120px 0;
+	font-family: 'Roboto', sans-serif;
+	color: #333;
+	font-weight: 400;
+	position: relative;
+	font-size: 18px;
+}
+.form-v5-content .form-detail {
+	padding: 10px 30px 10px 30px;
+	position: relative;
+}
+.form-detail h2 {
+	font-weight: 700;
+	font-size: 25px;
+	text-align: center;
+	position: relative;
+	padding: 3px 0 20px;
+	margin-bottom: 40px;
+}
+.form-detail h2::after {
+	background: #3786bd;
+	width: 50px;
+	height: 2px;
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+  transform: translateX(-50%);
+}
+.form-detail .form-row {
+	position: relative;
+}
+.form-detail .form-row-last {
+	text-align: center;
+}
+.form-detail label {
+	display: block;
+	font-size: 18px;
+	padding-bottom: 10px;
+}
+.form-detail .input-text {
+	margin-bottom: 26px;
+}
+.form-detail input {
+	width: 94.5%;
+    padding: 10.5px 15px;
+    border: 1px solid #e5e5e5;
+    outline: none;
+    border-radius: 4px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 18px;
+}
+.form-detail input:focus {
+	border: 1px solid #b3b3b3;
+}
+.form-detail .register {
+	font-size: 18px;
+	color: #fff;
+	background: #3786bd;
+	border-radius: 5px;
+	width: 180px;
+	box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2);
+	border: none;
+	margin: 19px 0 40px;
+	cursor: pointer;
+}
+.form-detail .register:hover {
+	background: #2f73a3;
+}
+.form-detail .form-row-last input {
+	padding: 14px;
+}
+.form-detail i {
+	font-size: 14px;
+	color: #999;
+	right: 15px;
+	top: 50%;
+	transform: translateX(-50%);
+	position: absolute;
+}
+@media screen and (max-width: 767px) {
+	.form-v5-content {
+	    margin: 50px 20px;
+	}
+}
+  
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" type="text/css" href="css/roboto-font.css">
+<link rel="stylesheet" type="text/css" href="fonts/font-awesome-5/css/fontawesome-all.min.css">
+
+</head>
+<body>
+
+	 <% if(error.length>0){%>
+<div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
+<% }if(success.length>0){%>
+<div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
+<% } %> 
+
+
+<div class="page-content">
+	
+<div class="form-v5-content">
+
+
+<form class="form-detail" action="/signup" method="POST">
+<h2>Sign Up</h2>
+<div class="form-row">
+<label for="full-name"><strong>Full Name:</strong></label>
+<input type="text" name="name" id="full-name" class="input-text" placeholder="Enter your Name" required>
+</div>
+<div class="form-row">
+<label for="your-email"><strong>Username:</strong></label>
+<input type="email" name="username" id="your-email" class="input-text" placeholder="Enter Email" required>
+</div>
+<div class="form-row">
+<label for="password"><strong>Password:</strong></label>
+<input type="password" name="password" id="password" class="input-text" placeholder="Enter Password" required>
+</div>
+<div class="form-row">
+<label for="rollno"><strong>Roll Number:</strong></label>
+<input type="text" min="0" name="rollno" id="rollno" class="input-text" placeholder="Roll Number" required>
+</div>
+<div class="form-row">
+<label for="age"><strong>Age:</strong></label>
+<input type="number" min="0" name="age" id="age" class="input-text" placeholder="Enter your Age" required>
+</div>
+<div class="form-row">
+<label for="phoneNumber"><strong>Phone Number:</strong></label>
+<input type="number" min="0" name="phoneNumber" id="phoneNumber" class="input-text" placeholder="Phone Number" required>
+</div>
+<div class="form-row">
+<label for="year"><strong>Current Year:</strong></label>
+<input type="number" min="0" name="year" id="year" class="input-text" placeholder="Current Year of College" required>
+</div>
+<div class="form-row">
+<label for="dept"><strong>Department:</strong></label>
+<input type="text" min="0" name="dept" id="dept" class="input-text" placeholder="Department" required>
+</div>
+<div class="form-row">
+<label for="section"><strong>Section:</strong></label>
+<input type="text" min="0" name="section" id="section" class="input-text" placeholder="Section" required>
+</div>
+
+<div class="form-row-last">
+<input type="submit" name="register" class="register" value="Register">
+</div>
+</form>
+</div>
+</div>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script type="text/javascript">
+
+
+$(".alert").fadeTo(2000, 500).slideUp(500, function(){
+    $(".alert").slideUp(1500);
+});
+
+$(document).ready(function() {
+    // show the alert
+    setTimeout(function() {
+        $(".alert").alert('close');
+    }, 3000);
+});
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+</body>
+</html>
