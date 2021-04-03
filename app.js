@@ -208,6 +208,7 @@ app.post("/newpass",(req,res)=>{
         if (err) 
         console.log(err);
                 else{
+            newuser.pass=req.body.password;
              newuser.save();
             req.flash("success","Password changed! Login with new credentials");
             res.redirect("/login");
@@ -390,6 +391,9 @@ app.get("/adminNewSubject",(req,res)=>{
     res.render("adminNewSubject.ejs");
 });
 
+
+///only for initial section and year room,faculty allocation
+
 app.post("/adminNewSubject/:id",(req,res)=>{
     var rms=[];
     var id=req.params.id;
@@ -453,7 +457,10 @@ app.post("/adminNewSubject/:id",(req,res)=>{
         }
         
         
-        fac11.facDetails.timetable=facTimeArray;
+        fac11.facDetails.timetable=facTimeArray;//assigning the time to the faculty timetable
+        
+        
+        /////////////************BELOW APRIL 1 code************////////////////
         
        
         
@@ -566,6 +573,15 @@ app.get("/adminNewSubjectNext/:numberOfClass/:id",(req,res)=>{
             }
         }
     });
+});
+
+//********Second or nth time faculty or room allocation,checking no clash in allocation also***********////
+
+app.get("/adminSecondNewSubject",(req,res)=>{
+    res.render("adminSecondNewSubject.ejs");
+});
+app.post("/adminSecondNewSubject",(req,res)=>{
+    
 });
 
 ///****************creating and deleting room lists*************************************
