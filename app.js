@@ -25,8 +25,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//mongoose.connect("mongodb://localhost/SE_db_v14",{useNewUrlParser: true});
-mongoose.connect("mongodb+srv://anantha28:anantha28pass@se.xpqcc.mongodb.net/SE_DB?retryWrites=true&w=majority",{useNewUrlParser: true});
+mongoose.connect("mongodb://localhost/SE_db_v14",{useNewUrlParser: true});
+//mongoose.connect("mongodb+srv://anantha28:anantha28pass@se.xpqcc.mongodb.net/SE_DB?retryWrites=true&w=majority",{useNewUrlParser: true});
 
 var methodOverride=require("method-override");
 app.use(methodOverride("_method"));
@@ -453,10 +453,7 @@ app.post("/adminNewSubject/:id",(req,res)=>{
         }
         
         
-        fac11.facDetails.timetable=facTimeArray;//assigning the time to the faculty timetable
-        
-        
-        /////////////************BELOW APRIL 1 code************////////////////
+        fac11.facDetails.timetable=facTimeArray;
         
        
         
