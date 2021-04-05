@@ -80,7 +80,7 @@ app.post("/otp",(req,res)=>{
                 if(usr[0].admin===true)
                 res.send("Admin logged in");
                 else
-               res.send("User Logged In!!");   
+               res.render("temp.ejs");   
             }
             else{
                 console.log(usr);
