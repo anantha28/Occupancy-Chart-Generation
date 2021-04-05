@@ -25,8 +25,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-mongoose.connect("mongodb://localhost/SE_db_v15",{useNewUrlParser: true});
-//mongoose.connect("mongodb+srv://anantha28:anantha28pass@se.xpqcc.mongodb.net/SE_DB?retryWrites=true&w=majority",{useNewUrlParser: true});
+//mongoose.connect("mongodb://localhost/SE_db_v15",{useNewUrlParser: true});
+mongoose.connect("mongodb+srv://anantha28:anantha28pass@se.xpqcc.mongodb.net/SE_DB?retryWrites=true&w=majority",{useNewUrlParser: true});
 
 var methodOverride=require("method-override");
 app.use(methodOverride("_method"));
