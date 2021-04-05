@@ -6,6 +6,7 @@ var TimeTableSchema=new mongoose.Schema({
     numberOfSubjects:Number,
     timeAlloted:[],
     roomAlloted:[],
+    courseName:[],
     checkSubjects:Number
 });
 

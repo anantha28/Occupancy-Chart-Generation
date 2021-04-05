@@ -134,16 +134,22 @@ background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
 <div class="page-content">
          
 <div class="form-v5-content">
-<form class="form-detail" action="/AdminnumberOfSub" method="POST">
-<h2>Create New Class TimeTable</h2>
+<form class="form-detail" action="/AdminNewSubject/<%= newT._id %>/" method="POST">
+<h2>Add Subject Details</h2>
 <div class="form-row">
-<input type="number" name="year" id="full-name" class="input-text" placeholder="Enter Year of Study" required>
+<input type="number" name="year" value="<%= newT.year %>" class="input-text" readonly>
 </div>
 <div class="form-row">
-<input type="text" name="section" id="full-name" class="input-text" placeholder="Enter Section" required>
+<input type="text" name="section" value="<%= newT.section %>" class="input-text" readonly>
 </div>
 <div class="form-row">
-<input type="number" name="subjects" id="full-name" class="input-text" placeholder="Number of Subjects" required>
+<input type="text" name="subjectName" id="full-name" class="input-text" placeholder="Subject Name" required>
+</div>
+<div class="form-row">
+<input type="text" name="facultyAssigned" id="full-name" class="input-text" placeholder="Faculty assigned" required>
+</div>
+<div class="form-row">
+<input type="text" name="noOfClassesPerWeek" id="full-name" class="input-text" placeholder="Number of classes per week" required>
 </div>
 <div class="form-row-last">
 <input type="submit" name="OTPverify" class="register" value="Submit">

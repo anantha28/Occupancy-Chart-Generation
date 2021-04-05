@@ -3,10 +3,10 @@ var mongoose=require("mongoose");
 var FacultySchema=new mongoose.Schema({
     name:String,
     facDetails:{
-        courseName:String,
+        courseName:[],
         section:String,
         year:Number,
-        roomNumber:[' '],
+        roomNumber:[],
         timetable:[]
         }
         
