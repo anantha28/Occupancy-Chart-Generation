@@ -367,7 +367,7 @@ app.post("/signup",function(req,res)
 app.get("/logout",function(req,res){
    req.logout();
    req.flash("success","Successfully logged you out");
-   res.redirect("/");
+   res.redirect("/login");
 });
 app.get("/AdminnumberOfSub",(req,res)=>{
     res.render("AdminnumberOfSub.ejs");
