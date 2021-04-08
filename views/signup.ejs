@@ -122,12 +122,22 @@ background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
 
 </head>
 <body>
+	
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        
+
 
 	 <% if(error.length>0){%>
 <div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
 <% }if(success.length>0){%>
 <div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
 <% } %> 
+
 
 
 <div class="page-content">
@@ -173,6 +183,12 @@ background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
 <label for="section"><strong>Section:</strong></label>
 <input type="text" min="0" name="section" id="section" class="input-text" placeholder="Section" required>
 </div>
+
+<label for="section1"><strong>Are you a faculty?:</strong></label>
+<select name="facOrUse" id="section1">
+  <option value="no">No,I am not</option>
+  <option value="yes">Yes, I am</option>
+</select>
 
 <div class="form-row-last">
 <input type="submit" name="register" class="register" value="Register">

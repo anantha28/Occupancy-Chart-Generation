@@ -5,8 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"</link>
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -3207,17 +3207,52 @@ th, td {
 	bottom: 0px;
 }
 
+
 </style>
 </head>
 <body>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+           <a class="navbar-brand" href="#"><strong>Occupancy Chart Generator</strong></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+   
+  
+	
+	<% if(!currentUser){ %>
+            <a class="btn btn-primary" href="/login" role="button">Login</a>
+            <%} else{ %>
+            <a href="#"  style="color:#ffffff;margin-right:18px;margin-left:700px"> <%= currentUser.username %></a>
+            <a class="btn btn-info" href="/logout" role="button">Logout</a>
+            
+            <% } %>
+	
+  </div>
+
+        </div>
+ </nav>
+ 
+             <% if(error.length>0){%>
+<div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
+<% }if(success.length>0){%>
+<div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
+<% } %>
 	
 	<div class="limiter">
 	  
+	  
 		<div class="container-table100">
+		  <h3><strong>Year of Study:<%=tim.year %>, </strong></h3>
+
+	  <h3><strong>   Section: <%=tim.section%></strong></h3>
 			<div class="wrap-table100">
 				
         
-				<div class="table100 ver6 m-b-110">
+				<div class="table100 ver6 m-b-110" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 					<table data-vertable="ver6">
 						<thead>
 							<tr class="row100 head">
@@ -3487,6 +3522,32 @@ th, td {
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	
+	<footer class="page-footer font-small pt-4" style="background:#343a40;margin-top:80px;padding-bottom:20px;padding-left:40%">
+
+  <div class="container-fluid text-center text-md-left" style="text-align:center">
+
+    <div class="row">
+
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <h5 class="text-light" style="margin-left:2%;padding-left:17%"> Contact Us:</h5>
+        
+        <br>
+		
+		 <a href="#" style="color:#ffffff;font-size:18px;margin-left:2%;float:left"><i class="fas fa-envelope fa-sm"></i> se.chartgeneration@gmail.com </a>
+		 <br>
+	
+      </div>
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+      
+    </div>
+
+  </div>
+
+</footer>
+
 
 </body>
 </html>

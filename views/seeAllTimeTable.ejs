@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <title>SE</title>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    	<script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
+		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+       <style>
+        body{
+           background-color: #FFC0CB;
+
+        }
+          table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 45%;
+}
+
+td{
+  border: 1px solid #dddddd;
+  padding: 8px;
+}
+th {
+  border: 1px solid #dddddd;
+  
+  padding: 14px;
+background:#ffffff;
+}
+
+tr:nth-child(even) {
+  background-color: #f1f1f1;
+  text-align:center;
+}
+tr:nth-child(odd) {
+  background-color: #ffffff;
+  text-align:center;
+}
+          
+        </style>
+    </head>
+    <body>
+             
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+           <a class="navbar-brand" href="#"><strong>Occupancy Chart Generator</strong></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+   
+  
+	
+	<% if(!currentUser){ %>
+            <a class="btn btn-primary" href="/login" role="button">Login</a>
+            <%} else{ %>
+            <a href="#"  style="color:#ffffff;margin-right:18px;margin-left:700px"> <%= currentUser.username %></a>
+            <a class="btn btn-info" href="/logout" role="button">Logout</a>
+            
+            <% } %>
+	
+  </div>
+
+        </div>
+ </nav>
+ 
+ <% if(error.length>0){%>
+<div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
+<% }if(success.length>0){%>
+<div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
+<% } %> 
+
+<div style="overflow-x:auto;">
+    <h2 style="margin-left:25%;margin-top:6%;color:#000000;">Timetable List:</h2>
+<table style="margin:25%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-top:2%;margin-bottom:2%;">
+  <tr>
+    <th>Year of Study</th>
+    <th>Section</th>
+    <th>Number of Subjects</th>
+    <th>Time Table</th>
+    <th>New Subject</th>
+  </tr>
+  
+  <% allTime.forEach(function(b){ %>
+  <tr>
+     
+    <td><%= b.year %></td>
+    <td><%= b.section %></td>
+    <td><%= b.numberOfSubjects %></td>
+    <td><button class="btn btn-info btn-sm"><a href="/seeAllTimeTable/<%= b.year%>/<%= b.section%>" style="text-decoration:None;color:#ffffff">View TimeTable</a></button></td>
+    <td><button class="btn btn-sm btn-success" ><a href="/newSubject/<%= b.year%>/<%= b.section%>" style="text-decoration:None;color:#ffffff">Add Subject</a></button></td>
+    
+  </tr>
+  <% })%>
+  
+</table>
+</div>
+
+<footer class="page-footer font-small pt-4" style="background:#343a40;margin-top:80px;padding-bottom:20px;padding-left:40%;">
+
+  <div class="container-fluid text-center text-md-left" style="text-align:center">
+
+    <div class="row">
+
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <h5 class="text-light" style="margin-left:2%;padding-left:17%"> Contact Us:</h5>
+        
+        <br>
+		
+		 <a href="#" style="color:#ffffff;font-size:18px;margin-left:2%;float:left"><i class="fas fa-envelope fa-sm"></i> se.chartgeneration@gmail.com </a>
+		 <br>
+	
+      </div>
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+      
+    </div>
+
+  </div>
+
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+$(document).ready(function() {
+    // show the alert
+    setTimeout(function() {
+        $(".alert").alert('close');
+    }, 3000);
+});
+    </script>
+    </body>
+</html>

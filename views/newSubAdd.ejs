@@ -154,19 +154,33 @@ background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
 <div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
 <% } %> 
 
+         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ 
+
 <div class="page-content">
          
 <div class="form-v5-content">
-<form class="form-detail" action="/AdminnumberOfSub" method="POST">
-<h2>Create New Class TimeTable</h2>
+<form class="form-detail" action="/newSubject/<%= newT._id %>/" method="POST">
+<h2>Add Subject Details</h2>
 <div class="form-row">
-<input type="number" name="year" id="full-name" class="input-text" placeholder="Enter Year of Study" required>
+<input type="number" name="year" value="<%= newT.year %>" class="input-text" readonly>
 </div>
 <div class="form-row">
-<input type="text" name="section" id="full-name" class="input-text" placeholder="Enter Section" required>
+<input type="text" name="section" value="<%= newT.section %>" class="input-text" readonly>
 </div>
 <div class="form-row">
-<input type="number" name="subjects" id="full-name" class="input-text" placeholder="Number of Subjects" required>
+<input type="text" name="subjectName" id="full-name" class="input-text" placeholder="Subject Name" required>
+</div>
+<div class="form-row">
+<input type="text" name="facultyAssigned" id="full-name" class="input-text" placeholder="Faculty assigned" required>
+</div>
+<div class="form-row">
+<input type="text" name="noOfClassesPerWeek" id="full-name" class="input-text" placeholder="Number of classes per week" required>
 </div>
 <div class="form-row-last">
 <input type="submit" name="OTPverify" class="register" value="Submit">

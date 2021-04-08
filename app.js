@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({limit: '50mb',extended:true}));
 var nodemailer = require('nodemailer');
 var flash=require("connect-flash");
 var OverallTimeTable=require("./models/overallTimeTable");
+var Layout=require("./models/layout");
 
 var localStrategy=require("passport-local");
 
@@ -46,8 +47,34 @@ app.use(function(req,res,next)
     next();
 });
 
+//***********************IMAGE UPLOAD***********************//
+
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter});
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'duozkjp1p', 
+  api_key: '722167338195677', 
+  api_secret: 'E9riFMymF0Ue7tNh4dzjWJK_IXE'
+});
+
+//*****//////////////////////*********************
+
 app.get("/",(req,res)=>{
-   res.render("signup.ejs");
+   res.render("login.ejs");
 });
 app.get("/signup",(req,res)=>{
    res.render("signup.ejs");
@@ -65,6 +92,86 @@ app.get("/frgtpassEmail",(req,res)=>{
     res.render("frgtpassEmail.ejs");
 });
 
+///*****************Layout image upload routes******////
+app.get("/layout",isLoggedIn,(req,res)=>{
+    res.render("layout.ejs");
+});
+
+app.post("/layout",isLoggedIn,upload.single('image'),(req,res)=>{
+    Layout.find({},(err,n)=>{
+        if(err) console.log(err);
+        else{
+            if(n.length===0){
+                cloudinary.uploader.upload(req.file.path, function(result) {
+                Layout.create({imageURL:result.secure_url},(err,img)=>{
+                    if(err) console.log(err);
+                    else{
+                      // console.log(img);
+                       req.flash("success","Image Uploaded successfully");
+                       res.redirect("/layout");
+                }
+                });
+                });
+            }
+            else{
+                cloudinary.uploader.upload(req.file.path, function(result) {
+                    n[0].imageURL=result.secure_url;
+                    n[0].save();
+                    req.flash("success","Image Updated Successfully");
+                    res.redirect("/adminDashboard");
+                });
+            }
+        }
+    });
+    
+});
+
+app.get("/viewLayout",isLoggedIn,(req,res)=>{
+    Layout.findOne({},(err,lay)=>{
+        if(err) console.log(err);
+        else{
+        res.render("viewLayout.ejs",{img:lay}); 
+        }
+    });
+});
+
+
+///*************************Admin Dashboard Timetable********************************
+
+app.get("/adminDashboard",isLoggedIn,(req,res)=>{
+    res.render("adminDashboard.ejs");
+});
+app.get("/userList",isLoggedIn,(req,res)=>{
+    User.find({},(err,allTime)=>{
+        if(err) console.log(err);
+        else{
+            res.render("userList.ejs",{allTime:allTime});
+        }
+    });
+});
+
+///*************************Student Dashboard Timetable********************************
+app.get("/studentDashboard",isLoggedIn,(req,res)=>{
+    res.render("studentDashboard.ejs");
+});
+
+app.get("/studentTimetable",isLoggedIn,(req,res)=>{
+    
+    TimeTable.findOne({section:req.user.section,year:req.user.year},(err,tim)=>{
+        if(err) console.log(err);
+        else{
+            if(tim===null || tim.length===0){
+                req.flash("error","No timetable assigned still,Please Wait!");
+                res.redirect("/studentDashboard");
+            }
+            else{
+                console.log(tim);
+                res.render("specificClassTimeTable.ejs",{tim:tim});
+            }
+        }
+    });
+});
+
 
 app.post("/otp",(req,res)=>{
     var u=req.user.username;
@@ -77,10 +184,22 @@ app.post("/otp",(req,res)=>{
             console.log(usr[0]);
             if(usr[0].otp===otp){
                 console.log(usr[0]);
-                if(usr[0].admin===true)
-                res.send("Admin logged in");
-                else
-               res.render("temp.ejs");   
+                    var u=req.user.username;
+                    User.findOne({username:u},(err,ad)=>{
+                        if(err)
+                        console.log(err);
+                        else{
+                    if(ad.admin===true){
+                        res.redirect("/adminDashboard");
+                    }
+                    if(ad.faculty==='yes'){
+                        res.redirect("/Facultytimetable");
+                    }
+                    else if(ad.faculty!=='yes' && ad.admin!==true) {
+                        res.redirect("/studentDashboard");
+                    }
+                        }
+                    });
             }
             else{
                 console.log(usr);
@@ -224,12 +343,16 @@ app.get("/checklog",(req,res)=>{
         if(err)
         console.log(err);
         else{
-             if(ad.admin==true){
-        res.send("Admin Logged In");
+             if(ad.admin===true){
+        res.redirect("/adminDashboard");
     }
-    else{
-        res.render("temp.ejs");
+    if(ad.faculty==='yes'){
+        res.redirect("/Facultytimetable");
     }
+    else if(ad.faculty!=='yes' && ad.admin!==true) {
+                        res.redirect("/studentDashboard");
+                    }
+   
         }
     });
    
@@ -241,7 +364,13 @@ app.post('/locklogin',(req,res)=>{
     if(err)
     console.log(err);
     else{
-    if(u.pass===req.body.password && u.loginAttempt!=3){
+        console.log(err);
+    if(u===null){
+        req.flash("error","Please SignUp, Your Account doesn't exists!");
+        res.redirect("/");
+    }
+    else{
+            if(u.pass===req.body.password && u.loginAttempt!=3){
         var d=new Date();
       var n=d.getTime();
       console.log(u.lockTime,n);
@@ -285,6 +414,7 @@ app.post('/locklogin',(req,res)=>{
       req.flash("error",`Login Attempts left: ${3-u.loginAttempt}`);
       res.redirect("/login");
       }
+    }  
     }
     }
 });
@@ -307,7 +437,7 @@ app.post("/signup",function(req,res)
     {
         if(err){
         console.log(err);
-        //req.flash("error",""+err.message);
+        req.flash("error",""+err.message);
         return res.redirect("/signup");
         }
         else
@@ -316,15 +446,18 @@ app.post("/signup",function(req,res)
             users.pass=req.body.password;
             users.phoneNumber=req.body.phoneNumber;
             users.name=req.body.name;
+            users.faculty=req.body.facOrUse;
             users.rollno=req.body.rollno;
             users.age=req.body.age;
             users.phoneNumber=req.body.phoneNumber;
             users.dept=req.body.dept;
             users.section=req.body.section;
+            users.year=req.body.year;
             
             if(users.username==='se.chartgeneration@gmail.com'){
             users.admin=true;
             }
+            console.log(users);
             var transporter = nodemailer.createTransport({
              service: 'gmail',
              auth: {
@@ -771,7 +904,8 @@ app.get("/adminNewSubjectNext/:numberOfClass/:id",(req,res)=>{
             else{
                 console.log(nxtres);
                  console.log("checkSubjects111",nxtres.checkSubjects,numberOfClass);
-                res.send("all subjects taken in");
+                req.flash("success","Timetable has been generated by the Algorithm!");
+                res.redirect("/adminSecondNewYearAndSec");
             }
         }
     });
@@ -802,7 +936,7 @@ app.post("/adminSecondNewYearAndSec",(req,res)=>{
             }
             else{
                 req.flash("error","TimeTable for the class Already Exists,Please go to Updation page for changing!");
-                res.send("Redirect to Admin Dashboard page");
+                res.redirect("/adminDashboard");
             }
         }
     });
@@ -825,7 +959,8 @@ app.get("/adminSecondNewSubjectNext/:numberOfClass/:id",(req,res)=>{
             else{
                 console.log(nxtres);
                  console.log("checkSubjects111",nxtres.checkSubjects,numberOfClass);
-                res.send("all subjects taken in from Second Routes");
+                 req.flash("success","Timetable has been generated by the Algorithm!");
+                res.redirect("/adminSecondNewYearAndSec");
             }
         }
     });
@@ -839,8 +974,14 @@ app.get("/Facultytimetable",isLoggedIn,(req,res)=>{
     Faculty.findOne({name:nme},(err,fac)=>{
         if(err) console.log(err);
         else{
-            console.log(fac);
-            res.render("FacultytimeTable.ejs",{fac:fac});
+            if(fac===null){
+                req.flash("error","Right Now Faculty is not assigned any Class");
+                res.redirect("/classTimeTable");
+            }
+            else{
+             console.log(fac);
+            res.render("FacultytimeTable.ejs",{fac:fac});   
+            }
         }
     });
 });
@@ -849,10 +990,12 @@ app.get("/classTimeTable",isLoggedIn,(req,res)=>{
     res.render("classTimeTable.ejs");
 });
 app.post("/classTimeTable",isLoggedIn,(req,res)=>{
+    console.log(req.body.section);
+    console.log(req.body.year);
     TimeTable.findOne({section:req.body.section,year:req.body.year},(err,tim)=>{
         if(err) console.log(err);
         else{
-            if(tim.length===0){
+            if( tim===null){
                 req.flash("error","Entered Year and Section doesn't exist!");
                 res.redirect("/classTimeTable");
             }
@@ -926,6 +1069,418 @@ app.get("/deleteFacPeriod/:time/:facID",isLoggedIn,(req,res)=>{
         }
     });
 });
+
+//**********UPDATE or add subjects to already exiting class**************
+
+
+/*app.get("/updateClassTimeTable",(req,res)=>{
+    res.render("updateClassTimeTable.ejs");
+});*/
+
+app.get("/newSubject/:year/:section",(req,res)=>{ ///************add new subjects to existing class**********////
+    TimeTable.findOne({year:req.params.year,section:req.params.section},(err,newT)=>{
+        if(err) console.log(err);
+        else{
+            res.render("newSubAdd.ejs",{newT:newT});
+        }
+    });
+});
+
+app.post("/newSubject/:id",(req,res)=>{ ///************add new subjects to existing class**********////POST METHOD
+    
+     var rms=[];
+    var id=req.params.id;
+    var facD={section:req.body.section,year:req.body.year,timetable:[0]};
+    var fac={name:req.body.facultyAssigned,facDetails:facD};
+    var noOfClassesPerWeek=req.body.noOfClassesPerWeek;
+    
+    Faculty.find({name:req.body.facultyAssigned},(err,facDet)=>{
+        if(err) console.log(err);
+        else{
+            if(facDet.length===0){ //faculty doesn't already exists
+                
+                Faculty.create(fac,(err,fac11)=>{
+        if(err)
+        console.log(err);
+        else{
+            
+          var arr=[29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58];
+          
+        var result=new Array(noOfClassesPerWeek);
+        var n=noOfClassesPerWeek;
+        var len = arr.length,
+        taken = new Array(len);
+    if (n > len)
+        throw new RangeError("getRandom: more elements taken than available");
+    while (n--) {
+        var x = Math.floor(Math.random() * len);
+        result[n] = arr[x in taken ? taken[x] : x];
+        taken[x] = --len in taken ? taken[len] : len;
+    }
+    //console.log(result);
+    
+    
+     var repetition=[29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58];
+    var facTimeArray=[];
+    TimeTable.findById(id,(err,tim)=>{
+        if(err)
+        console.log(err);
+        else{
+            tim.checkSubjects+=1;
+            tim.numberOfSubjects+=1;
+            var i;
+            var checkIter=0;
+            
+        for(i=0;i<result.length;i++){
+            //console.log(tim.timeAlloted.includes(result[i]));
+            if(!(tim.timeAlloted.includes(result[i]))){
+                //console.log('in1');
+            tim.timeAlloted.push(result[i]);
+            facTimeArray.push(result[i]);
+            checkIter+=1;
+            }
+        }
+        if(checkIter!==result.length){
+            //console.log('in3');
+          while(checkIter!==result.length){
+              for(i=0;i<repetition.length;i++){
+                  //console.log('in4');
+                  if(!(tim.timeAlloted.includes(repetition[i]))){
+                      tim.timeAlloted.push(repetition[i]);
+                      facTimeArray.push(repetition[i]);
+                      checkIter+=1;
+                      //console.log('in5');
+                      break;
+                  }
+              }
+          }  
+        }
+        
+        fac11.facDetails.courseName=(new Array(facTimeArray.length).fill(req.body.subjectName));
+        fac11.facDetails.timetable=facTimeArray;//assigning the time to the faculty timetable
+        for(var t=0;t<facTimeArray.length;t++){
+            tim.courseName.push(req.body.subjectName);
+        }
+        //tim.courseName=(new Array(facTimeArray.length).fill(req.body.subjectName));
+        console.log(tim);
+        
+        /////////////************BELOW APRIL 1 code************////////////////
+        
+       
+        
+        var roomNumber=['A-101','A-102','A-103','B-104','B-105','B-106','A-107','B-108','C-109','C-110'];
+        //console.log('facTimeArray',facTimeArray);
+        
+        
+        OverallTimeTable.find({},(err,isThere)=>{
+            if(err) console.log(err);
+            else{
+                
+                if(isThere.length===0){ ////initial creation of timetable logic
+                  OverallTimeTable.create({rooms:[],times:[]},(err,newTime)=>{
+                      if(err) console.log(err);
+                      else{
+                          for(var e=0;e<facTimeArray.length;e++){
+                              newTime.times.push(facTimeArray[e]);
+                              var item =roomNumber[Math.floor(Math.random() * roomNumber.length)];
+                              newTime.rooms.push(item);
+                              
+                              rms.push(item);
+                              tim.roomAlloted.push(item);
+                              /*fac11.facDetails.roomNumber.push(item);
+                              tim.roomAlloted.push(item);*/
+                          }
+                          newTime.save();
+                          
+                           fac11.facDetails.roomNumber=rms;
+                            
+            
+                            fac11.save();
+                            console.log(fac11);
+                        
+                            tim.save();
+                            console.log(tim);
+                      }
+                  });
+                }
+                
+                else{
+                    OverallTimeTable.findOne({},(err,allTime)=>{
+                        if(err) console.log(err);
+                        else{
+                            for(var e=0;e<facTimeArray.length;e++){
+                                var item =roomNumber[Math.floor(Math.random() * roomNumber.length)];
+                                var rooms=getAllValuesFromRoom(allTime.times,facTimeArray[e],allTime.rooms);
+                                if(rooms.includes(item)){
+                                    while(!(rooms.includes(item))){
+                                        item =roomNumber[Math.floor(Math.random() * roomNumber.length)];
+                                    }
+                                    allTime.times.push(facTimeArray[e]);
+                                    allTime.rooms.push(item);
+                                    
+                                    rms.push(item);
+                                    tim.roomAlloted.push(item);
+                              /*fac11.facDetails.roomNumber.push(item);
+                              tim.roomAlloted.push(item);*/
+                                }
+                                else{
+                                    allTime.times.push(facTimeArray[e]);
+                                    allTime.rooms.push(item);
+                                    
+                                    rms.push(item);
+                                    tim.roomAlloted.push(item);
+                                    
+                              /*fac11.facDetails.roomNumber.push(item);
+                              tim.roomAlloted.push(item);*/
+                                }
+                                
+                            }
+                        }
+                        allTime.save();
+                        console.log(allTime);
+                         fac11.facDetails.roomNumber=rms;
+                        
+                        
+                        fac11.save();
+                        console.log(fac11);
+                    
+                        tim.save();
+                        console.log(tim);
+                    });
+                }
+            }
+        });
+        
+        
+       // var numberOfSubjects=tim.numberOfSubjects.toString();
+        req.flash("success","New Subject added");
+        res.redirect("/seeAllTimetable");
+        }
+     });
+    }
+    });
+                
+            }
+            else{ //*******************faculty already exists*********************************
+            
+            console.log(facDet);
+                
+                var arr=[29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58];
+                
+                //var facTimes=[];
+                
+                var result=new Array(noOfClassesPerWeek);
+                var n=noOfClassesPerWeek;
+                var len = arr.length,
+                taken = new Array(len);
+                if (n > len)
+                    throw new RangeError("getRandom: more elements taken than available");
+                while (n--) {
+                        var x = Math.floor(Math.random() * len);
+                        result[n] = arr[x in taken ? taken[x] : x];
+                        taken[x] = --len in taken ? taken[len] : len;
+                            }
+                //console.log(result);
+                
+               /* var checkI=0;
+                for(var k=0;k<result.length;k++){
+                    if(!(facDet.timetable.includes(result[k]))){
+                        facTimes.push(result[k]);
+                        checkI+=1;
+                    }
+                }
+                var rm=[29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58];
+                while(checkI!==result.length){
+                    var item = rm[Math.floor(Math.random() * rm.length)];
+                    if(!(facDet.timetable.includes(item))){
+                        facTimes.push(item);
+                        checkI+=1;
+                    }
+                }
+                
+                for (var e;e<facTimes.length;e++){
+                    facDet.push(facTimes[e]);
+                }
+                console.log(facDet);*/
+                
+                
+                ////new copied from if block code**********
+                
+                 var repetition=[29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58];
+        var facTimeArray=[];
+        TimeTable.findById(id,(err,tim)=>{
+            if(err)
+            console.log(err);
+            else{
+                tim.checkSubjects+=1;
+                var i;
+                var checkIter=0;
+                
+            for(i=0;i<result.length;i++){
+                //console.log(tim.timeAlloted.includes(result[i]));
+                if((!(tim.timeAlloted.includes(result[i]))) && (!(facDet[0].facDetails.timetable.includes(result[i])))){
+                    //console.log('in1');
+                tim.timeAlloted.push(result[i]);
+                facTimeArray.push(result[i]);
+                checkIter+=1;
+                }
+            }
+            if(checkIter!==result.length){
+                //console.log('in3');
+              while(checkIter!==result.length){
+                  for(i=0;i<repetition.length;i++){
+                      //console.log('in4');
+                      if((!(tim.timeAlloted.includes(result[i]))) && (!(facDet[0].facDetails.timetable.includes(result[i])))){
+                          tim.timeAlloted.push(repetition[i]);
+                          facTimeArray.push(repetition[i]);
+                          checkIter+=1;
+                          //console.log('in5');
+                          break;
+                      }
+                  }
+              }  
+            }
+            
+            
+            for(var e=0;e<facTimeArray.length;e++){//**********pushing timeslots into already existing time slots of that faculty*******///
+                facDet[0].facDetails.timetable.push(facTimeArray[e]);
+                facDet[0].facDetails.courseName.push(req.body.subjectName);
+                tim.courseName.push(req.body.subjectName);
+                console.log('actually in111');
+            }
+            console.log(tim);
+            //fac11.facDetails.timetable=facTimeArray
+               console.log(facDet[0]);    
+               
+               
+    //*********ROOM ALLOTMENT STRATEGY**********************///////////////////////////
+    
+        var roomNumber=['A-101','A-102','A-103','B-104','B-105','B-106','A-107','B-108','C-109','C-110'];
+        //console.log('facTimeArray',facTimeArray);
+        
+        
+        OverallTimeTable.find({},(err,isThere)=>{
+            if(err) console.log(err);
+            else{
+                
+                if(isThere.length===0){ ////initial creation of timetable logic
+                  OverallTimeTable.create({rooms:[],times:[]},(err,newTime)=>{
+                      if(err) console.log(err);
+                      else{
+                          for(var e=0;e<facTimeArray.length;e++){
+                              newTime.times.push(facTimeArray[e]);
+                              var item =roomNumber[Math.floor(Math.random() * roomNumber.length)];
+                              newTime.rooms.push(item);
+                              
+                              rms.push(item);
+                              tim.roomAlloted.push(item);
+                              /*fac11.facDetails.roomNumber.push(item);
+                              tim.roomAlloted.push(item);*/
+                          }
+                          newTime.save();
+                          
+                          for(e=0;e<rms.length;e++){//**********pushing roomNumber into already existing roomNumber array of that faculty*******///
+                            facDet[0].facDetails.roomNumber.push(rms[e]);
+                             }
+            
+                            facDet[0].save();
+                            console.log(facDet[0]);
+                        
+                            tim.save();
+                            console.log(tim);
+                      }
+                  });
+                }
+                
+                else{
+                    OverallTimeTable.findOne({},(err,allTime)=>{
+                        if(err) console.log(err);
+                        else{
+                            for(var e=0;e<facTimeArray.length;e++){
+                                var item =roomNumber[Math.floor(Math.random() * roomNumber.length)];
+                                var rooms=getAllValuesFromRoom(allTime.times,facTimeArray[e],allTime.rooms);
+                                if(rooms.includes(item)){
+                                    while(!(rooms.includes(item))){
+                                        item =roomNumber[Math.floor(Math.random() * roomNumber.length)];
+                                    }
+                                    allTime.times.push(facTimeArray[e]);
+                                    allTime.rooms.push(item);
+                                    
+                                    rms.push(item);
+                                    tim.roomAlloted.push(item);
+                              /*fac11.facDetails.roomNumber.push(item);
+                              tim.roomAlloted.push(item);*/
+                                }
+                                else{
+                                    allTime.times.push(facTimeArray[e]);
+                                    allTime.rooms.push(item);
+                                    
+                                    rms.push(item);
+                                    tim.roomAlloted.push(item);
+                                    
+                              /*fac11.facDetails.roomNumber.push(item);
+                              tim.roomAlloted.push(item);*/
+                                }
+                                
+                            }
+                        }
+                        allTime.save();
+                        console.log(allTime);
+                        
+                        for(e=0;e<rms.length;e++){//**********pushing roomNumber into already existing roomNumber array of that faculty*******///
+                            facDet[0].facDetails.roomNumber.push(rms[e]);
+                             }
+            
+                            facDet[0].save();
+                            console.log(facDet[0]);
+                    
+                        tim.save();
+                        console.log(tim);
+                    });
+                }
+            }
+        });
+        
+        req.flash("success","New Subject added");
+        res.redirect("/seeAllTimetable"); //****redirecting to second next subject route****///
+        }
+            });
+        }
+    }
+});
+    
+});
+
+//********Table to see any class timetable******///////////*********ADMIN SIDE************////////
+
+app.get("/seeAllTimeTable",isLoggedIn,(req,res)=>{
+    TimeTable.find({},(err,allTime)=>{
+        if(err) console.log(err);
+        else{
+            res.render("seeAllTimeTable.ejs",{allTime:allTime});
+        }
+    });
+});
+
+app.get("/seeAllTimeTable/:year/:section",isLoggedIn,(req,res)=>{
+    
+    TimeTable.findOne({section:req.params.section,year:req.params.year},(err,tim)=>{
+        if(err) console.log(err);
+        else{
+            if(tim.length===0){
+                req.flash("error","TimeTable doesn't exist!");
+                res.redirect("/classTimeTable");
+            }
+            else{
+                console.log(tim);
+                res.render("specificClassTimeTable.ejs",{tim:tim});
+            }
+        }
+    });
+});
+
+
+
 
 ///****************creating and deleting room lists*************************************
 

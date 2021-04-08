@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"</link>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 	<title>Table V03</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -3204,11 +3205,35 @@ th, td {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	
-		<% if(error.length>0 ){%>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+           <a class="navbar-brand" href="#"><strong>Occupancy Chart Generator</strong></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+   
+  
+	
+	<% if(!currentUser){ %>
+            <a class="btn btn-primary" href="/login" role="button">Login</a>
+            <%} else{ %>
+            <a href="#"  style="color:#ffffff;margin-right:18px;margin-left:700px"> <%= currentUser.username %></a>
+            <a class="btn btn-info" href="/logout" role="button">Logout</a>
+            
+            <% } %>
+	
+  </div>
+
+        </div>
+ </nav>
+ 
+             <% if(error.length>0){%>
 <div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
 <% }if(success.length>0){%>
 <div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
-<% } %>
+<% } %> 
 	
 	<div class="limiter">
 		<div class="container-table100">
@@ -3471,11 +3496,36 @@ th, td {
 			</div>
 		</div>
 	</div>
+	
+	<footer class="page-footer font-small pt-4" style="background:#343a40;margin-top:80px;padding-bottom:20px;padding-left:40%">
+
+  <div class="container-fluid text-center text-md-left" style="text-align:center">
+
+    <div class="row">
+
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <h5 class="text-light" style="margin-left:2%;padding-left:17%"> Contact Us:</h5>
+        
+        <br>
+		
+		 <a href="#" style="color:#ffffff;font-size:18px;margin-left:2%;float:left"><i class="fas fa-envelope fa-sm"></i> se.chartgeneration@gmail.com </a>
+		 <br>
+	
+      </div>
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+      
+    </div>
+
+  </div>
+
+</footer>
 
 
 <script>
   $(document).ready(function(){
-    alert('Click on the cell to cancel the class!');
+    alert('Click on a cell to cancel the class!');
   });
 </script>
 

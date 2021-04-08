@@ -30,7 +30,8 @@ var UserSchema=new mongoose.Schema({
     lockTime:{
         default:0,
         type:Number
-    }
+    },
+    faculty:String
 });
 
 UserSchema.plugin(passportLocalMongoose);
