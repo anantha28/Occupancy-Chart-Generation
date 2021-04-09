@@ -1134,22 +1134,22 @@ app.post("/newSubject/:id",(req,res)=>{ ///************add new subjects to exist
         for(i=0;i<result.length;i++){
             //console.log(tim.timeAlloted.includes(result[i]));
             if(!(tim.timeAlloted.includes(result[i]))){
-                //console.log('in1');
+                console.log('in1');
             tim.timeAlloted.push(result[i]);
             facTimeArray.push(result[i]);
             checkIter+=1;
             }
         }
         if(checkIter!==result.length){
-            //console.log('in3');
+            console.log('in3');
           while(checkIter!==result.length){
               for(i=0;i<repetition.length;i++){
-                  //console.log('in4');
+                  console.log('in4');
                   if(!(tim.timeAlloted.includes(repetition[i]))){
                       tim.timeAlloted.push(repetition[i]);
                       facTimeArray.push(repetition[i]);
                       checkIter+=1;
-                      //console.log('in5');
+                      console.log('in5');
                       break;
                   }
               }
@@ -1313,28 +1313,29 @@ app.post("/newSubject/:id",(req,res)=>{ ///************add new subjects to exist
             console.log(err);
             else{
                 tim.checkSubjects+=1;
+                tim.numberOfSubjects+=1;
                 var i;
                 var checkIter=0;
                 
             for(i=0;i<result.length;i++){
                 //console.log(tim.timeAlloted.includes(result[i]));
                 if((!(tim.timeAlloted.includes(result[i]))) && (!(facDet[0].facDetails.timetable.includes(result[i])))){
-                    //console.log('in1');
+                    console.log('fin1');
                 tim.timeAlloted.push(result[i]);
                 facTimeArray.push(result[i]);
                 checkIter+=1;
                 }
             }
             if(checkIter!==result.length){
-                //console.log('in3');
+                console.log('fin3');
               while(checkIter!==result.length){
                   for(i=0;i<repetition.length;i++){
-                      //console.log('in4');
+                      console.log('fin4');
                       if((!(tim.timeAlloted.includes(result[i]))) && (!(facDet[0].facDetails.timetable.includes(result[i])))){
                           tim.timeAlloted.push(repetition[i]);
                           facTimeArray.push(repetition[i]);
                           checkIter+=1;
-                          //console.log('in5');
+                          console.log('fin5');
                           break;
                       }
                   }
@@ -1346,7 +1347,7 @@ app.post("/newSubject/:id",(req,res)=>{ ///************add new subjects to exist
                 facDet[0].facDetails.timetable.push(facTimeArray[e]);
                 facDet[0].facDetails.courseName.push(req.body.subjectName);
                 tim.courseName.push(req.body.subjectName);
-                console.log('actually in111');
+                console.log('ffff actually in111');
             }
             console.log(tim);
             //fac11.facDetails.timetable=facTimeArray
