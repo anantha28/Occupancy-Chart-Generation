@@ -65,6 +65,8 @@ tr:nth-child(odd) {
 	
   </div>
 
+  <a class="btn btn-info back" href="/adminDashboard" role="button" style="Display:None">adminDashboard</a>
+  
         </div>
  </nav>
  
@@ -85,17 +87,18 @@ tr:nth-child(odd) {
     <th>New Subject</th>
   </tr>
   
-  <% allTime.forEach(function(b){ %>
+  <% var i=1;var j=100;
+   allTime.forEach(function(b){ %>
   <tr>
      
     <td><%= b.year %></td>
     <td><%= b.section %></td>
     <td><%= b.numberOfSubjects %></td>
-    <td><button class="btn btn-info btn-sm"><a href="/seeAllTimeTable/<%= b.year%>/<%= b.section%>" style="text-decoration:None;color:#ffffff">View TimeTable</a></button></td>
-    <td><button class="btn btn-sm btn-success" ><a href="/newSubject/<%= b.year%>/<%= b.section%>" style="text-decoration:None;color:#ffffff">Add Subject</a></button></td>
+    <td><button class="btn btn-info btn-sm" id="<%= i %>"><a href="/seeAllTimeTable/<%= b.year%>/<%= b.section%>" style="text-decoration:None;color:#ffffff">View TimeTable</a></button></td>
+    <td><button class="btn btn-sm btn-success" id="<%= j %>"><a href="/newSubject/<%= b.year%>/<%= b.section%>" style="text-decoration:None;color:#ffffff">Add Subject</a></button></td>
     
   </tr>
-  <% })%>
+  <% i++;j++})%>
   
 </table>
 </div>
