@@ -174,7 +174,7 @@ app.get("/studentTimetable",isLoggedIn,(req,res)=>{
 
 
 app.post("/otp",(req,res)=>{
-    var u=req.user.username;
+    var u=req.body.username;
     var otp=((req.body.otp).toString());
     console.log(otp);
     User.find({username:u},(err,usr)=>{
@@ -208,7 +208,8 @@ app.post("/otp",(req,res)=>{
                 if(usr[0].count!=3)
                 {
                     req.flash("error","Incorrect OTP!!");
-                     res.render("otp.ejs",{username:u,c:usr[0].count});
+                    console.log(req.body.username);
+                     res.render("otp.ejs",{username:req.body.username,c:usr[0].count});
                 }
                 else{
                     User.remove({username:u},(err,rem)=>{
