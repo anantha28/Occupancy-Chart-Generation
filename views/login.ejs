@@ -289,6 +289,13 @@ background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
 
 </head>
 <body>
+    
+              <% if(error.length>0){%>
+<div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
+<% }if(success.length>0){%>
+<div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
+<% } %> 
+
 
 <div id='stars'></div>
 <div id='stars2'></div>
