@@ -1009,10 +1009,11 @@ app.post("/classTimeTable",isLoggedIn,(req,res)=>{
 });
 
 app.post("/deleteFacPeriod",isLoggedIn,(req,res)=>{
-    var nme=(req.body.name.toLowerCase());
+    var nme=(req.body.name);
      Faculty.findOne({name:nme},(err,fac)=>{
         if(err) console.log(err);
         else{
+        
         req.flash("success","click on the cell to cancel the class!");///not working still*********
         res.render("deleteFacPeriod.ejs",{fac:fac});
         }
