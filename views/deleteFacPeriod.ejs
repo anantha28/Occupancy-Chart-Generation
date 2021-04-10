@@ -3237,8 +3237,11 @@ th, td {
 	
 	<div class="limiter">
 		<div class="container-table100">
+		  
+		  
+		  
 			<div class="wrap-table100">
-				
+				<h4 style="text-align:center"><strong>Click on a particular cell to cancel the period</strong></h4>
 
 				<div class="table100 ver6 m-b-110">
 					<table data-vertable="ver6">
@@ -3418,7 +3421,7 @@ th, td {
 									<td class="column100 column6" data-column="column6">LUNCH</td>
 								
 								 <% if(fac.facDetails.timetable.includes(51)){ %>
-								<td class="column100 column7" data-column="column7"><a href="/deleteFacPeriod/51/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(51)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(51)]%></a></td>
+								<td class="column100 column7" data-column="column7"><a href="/deleteFacPeriod/51/<%= fac._id %>" style="text-decoration:None;color:#ffffff" id='51'><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(51)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(51)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column7" data-column="column7">--</td>
 								<% } 
@@ -3523,11 +3526,7 @@ th, td {
 </footer>
 
 
-<script>
-  $(document).ready(function(){
-    alert('Click on a cell to cancel the class!');
-  });
-</script>
+
 
 </body>
 </html>
