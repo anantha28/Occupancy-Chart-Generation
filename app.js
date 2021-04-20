@@ -605,7 +605,7 @@ app.post("/adminNewSubject/:id",(req,res)=>{
         //tim.courseName=(new Array(facTimeArray.length).fill(req.body.subjectName));
         console.log(tim);
         
-        /////////////************BELOW APRIL 1 code************////////////////
+        
         
        
         
@@ -743,8 +743,7 @@ app.post("/adminNewSubject/:id",(req,res)=>{
                 }
                 console.log(facDet);*/
                 
-                
-                ////new copied from if block code**********
+
                 
                  var repetition=[29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58];
         var facTimeArray=[];
@@ -894,7 +893,7 @@ app.post("/adminNewSubject/:id",(req,res)=>{
 
 app.get("/adminNewSubjectNext/:numberOfClass/:id",(req,res)=>{
     var id=req.params.id;
-    var numberOfClass=parseInt(req.params.numberOfClass);//*********actually it is number of subjects stored************
+    var numberOfClass=parseInt(req.params.numberOfClass);//*********number of subjects stored************
     TimeTable.findById(id,(err,nxtres)=>{
         if(err) console.log(err);
         else{
