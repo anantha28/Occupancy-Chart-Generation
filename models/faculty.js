@@ -4,8 +4,8 @@ var FacultySchema=new mongoose.Schema({
     name:String,
     facDetails:{
         courseName:[],
-        section:String,
-        year:Number,
+        section:[],
+        year:[],
         roomNumber:[],
         timetable:[]
         }

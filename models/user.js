@@ -31,7 +31,16 @@ var UserSchema=new mongoose.Schema({
         default:0,
         type:Number
     },
-    faculty:String
+    faculty:String,
+    classChange:{
+        time:[],
+        from:[],
+        to:[]
+    },
+    timeChange:{
+        fromTime:[],
+        toTime:[]
+    }
 });
 
 UserSchema.plugin(passportLocalMongoose);

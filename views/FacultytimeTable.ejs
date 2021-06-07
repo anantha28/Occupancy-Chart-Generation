@@ -3217,6 +3217,7 @@ th, td {
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -3249,6 +3250,7 @@ th, td {
 <div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
 <% } %> 
 	
+	<a class="btn btn-primary cmd" style="margin-left:450px" role="button">Download</a>
 	
 	<div class="limiter">
 		<div class="container-table100">
@@ -3257,8 +3259,8 @@ th, td {
 			<div class="wrap-table100">
 				
 
-				<div class="table100 ver6 m-b-110">
-					<table data-vertable="ver6">
+				<div class="table100 ver6 m-b-110 new22">
+					<table data-vertable="ver6" class="new_cmd">
 						<thead>
 							<tr class="row100 head">
 								<th class="column100 column1" data-column="column1"></th>
@@ -3277,25 +3279,25 @@ th, td {
               
 								<td class="column100 column1" data-column="column1">Monday </td>
 								<% if(fac.facDetails.timetable.includes(29)){ %>
-								<td class="column100 column2" data-column="column2"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(29)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(29)]%></td>
+								<td class="column100 column2" data-column="column2"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(29)]%><br/><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(29)]%></td>
 								<% }else{ %>
 								<td class="column100 column2" data-column="column2">--</td>
 								<% } 
 								
 								if(fac.facDetails.timetable.includes(30)){ %>
-								<td class="column100 column3" data-column="column3"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(30)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(30)]%></td>
+								<td class="column100 column3" data-column="column3"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(30)]%><br/><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(30)]%></td>
 								<% }else{ %>
 								<td class="column100 column3" data-column="column3">--</td>
 								<% } 
 								
 							  if(fac.facDetails.timetable.includes(31)){ %>
-								<td class="column100 column4" data-column="column4"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(31)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(31)]%></td>
+								<td class="column100 column4" data-column="column4"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(31)]%><br/><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(31)]%></td>
 								<% }else{ %>
 								<td class="column100 column4" data-column="column4">--</td>
 								<% } 
 								
 								 if(fac.facDetails.timetable.includes(32)){ %>
-								<td class="column100 column5" data-column="column5"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(32)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(32)]%></td>
+								<td class="column100 column5" data-column="column5"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(32)]%><br/><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(32)]%></td>
 								<% }else{ %>
 								<td class="column100 column5" data-column="column5">--</td>
 								<% } %>
@@ -3303,14 +3305,14 @@ th, td {
 									<td class="column100 column6" data-column="column6">LUNCH</td>
 								
 								 <% if(fac.facDetails.timetable.includes(33)){ %>
-								<td class="column100 column7" data-column="column7"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(33)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(33)]%></td>
+								<td class="column100 column7" data-column="column7"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(33)]%><br/><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(33)]%></td>
 								<% }else{ %>
 								<td class="column100 column7" data-column="column7">--</td>
 								<% } 
 							
 								
 								if(fac.facDetails.timetable.includes(34)){ %>
-								<td class="column100 column8" data-column="column8"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(34)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(34)]%></td>
+								<td class="column100 column8" data-column="column8"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(34)]%><br/><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(34)]%></td>
 								<% }else{ %>
 								<td class="column100 column8" data-column="column8">--</td>
 								<% } %>
@@ -3321,7 +3323,7 @@ th, td {
               
 								<td class="column100 column1" data-column="column1">Tuesday </td>
 								<% if(fac.facDetails.timetable.includes(35)){ %>
-								<td class="column100 column2" data-column="column2"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(35)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(35)]%></td>
+								<td class="column100 column2" data-column="column2"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(35)]%><br/><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(35)]%></td>
 								<% }else{ %>
 								<td class="column100 column2" data-column="column2">--</td>
 								<% } 
@@ -3555,6 +3557,25 @@ th, td {
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	
+	<script>
+	$('.cmd').click(function () { 
+  var pdf = new jsPDF('l', 'mm', [600, 600]);
+  var specialElementHandlers = {
+    '#editor': function (element, renderer) {
+        return true;
+    }
+  };
+  var $temp = $('.new22');
+  pdf.fromHTML($temp.html(), 15, 15, {
+        'width': 900,
+        'height':800,
+        'elementHandlers':specialElementHandlers
+    }
+  );
+  pdf.save('Timetable.pdf');});	
+	
+  </script>
 
 </body>
 </html>

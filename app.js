@@ -26,7 +26,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//mongoose.connect("mongodb://localhost/SE_db_v15",{useNewUrlParser: true});
+//mongoose.connect("mongodb://localhost/SEdb_v5",{useNewUrlParser: true});
 mongoose.connect("mongodb+srv://anantha28:anantha28pass@se.xpqcc.mongodb.net/SE_DB?retryWrites=true&w=majority",{useNewUrlParser: true});
 
 var methodOverride=require("method-override");
@@ -193,7 +193,7 @@ app.post("/otp",(req,res)=>{
                         res.redirect("/adminDashboard");
                     }
                     if(ad.faculty==='yes'){
-                        res.redirect("/Facultytimetable");
+                        res.redirect("/facultyDashboard");
                     }
                     else if(ad.faculty!=='yes' && ad.admin!==true) {
                         res.redirect("/studentDashboard");
@@ -348,7 +348,7 @@ app.get("/checklog",(req,res)=>{
         res.redirect("/adminDashboard");
     }
     if(ad.faculty==='yes'){
-        res.redirect("/Facultytimetable");
+     res.redirect("/facultyDashboard");
     }
     else if(ad.faculty!=='yes' && ad.admin!==true) {
                         res.redirect("/studentDashboard");
@@ -527,19 +527,21 @@ app.get("/adminNewSubject",(req,res)=>{
 });
 
 
-///only for initial section and year room,faculty allocation
+
 
 app.post("/adminNewSubject/:id",(req,res)=>{
     var rms=[];
     var id=req.params.id;
-    var facD={section:req.body.section,year:req.body.year,timetable:[0]};
+    var section=req.body.section;
+    var year=req.body.year;
+    var facD={section:[],year:[],timetable:[0]};
     var fac={name:req.body.facultyAssigned,facDetails:facD};
     var noOfClassesPerWeek=req.body.noOfClassesPerWeek;
     
     Faculty.find({name:req.body.facultyAssigned},(err,facDet)=>{
-        if(err) console.log(err)
+        if(err) console.log(err);
         else{
-            if(facDet.length===0){ //faculty doesn't already exists
+            if(facDet.length===0){ //faculty doesn't already exists 
                 
                 Faculty.create(fac,(err,fac11)=>{
         if(err)
@@ -597,6 +599,9 @@ app.post("/adminNewSubject/:id",(req,res)=>{
           }  
         }
         
+        
+            fac11.facDetails.year=(new Array(facTimeArray.length).fill(year));
+            fac11.facDetails.section=(new Array(facTimeArray.length).fill(section));
         fac11.facDetails.courseName=(new Array(facTimeArray.length).fill(req.body.subjectName));
         fac11.facDetails.timetable=facTimeArray;//assigning the time to the faculty timetable
         for(var t=0;t<facTimeArray.length;t++){
@@ -769,7 +774,7 @@ app.post("/adminNewSubject/:id",(req,res)=>{
               while(checkIter!==result.length){
                   for(i=0;i<repetition.length;i++){
                       //console.log('in4');
-                      if((!(tim.timeAlloted.includes(result[i]))) && (!(facDet[0].facDetails.timetable.includes(result[i])))){
+                      if((!(tim.timeAlloted.includes(repetition[i]))) && (!(facDet[0].facDetails.timetable.includes(repetition[i])))){  ///////////////////changed
                           tim.timeAlloted.push(repetition[i]);
                           facTimeArray.push(repetition[i]);
                           checkIter+=1;
@@ -784,6 +789,8 @@ app.post("/adminNewSubject/:id",(req,res)=>{
             for(var e=0;e<facTimeArray.length;e++){//**********pushing timeslots into already existing time slots of that faculty*******///
                 facDet[0].facDetails.timetable.push(facTimeArray[e]);
                 facDet[0].facDetails.courseName.push(req.body.subjectName);
+                facDet[0].facDetails.section.push(req.body.section);
+                facDet[0].facDetails.year.push(req.body.year);
                 tim.courseName.push(req.body.subjectName);
                 console.log('actually in111');
             }
@@ -968,6 +975,24 @@ app.get("/adminSecondNewSubjectNext/:numberOfClass/:id",(req,res)=>{
 
 //////////////////////////*********SHOW TIMETABLE in the front-end******************//////////
 
+app.get("/ViewFacultytimetable",isLoggedIn,(req,res)=>{
+    var u=req.user;
+    var nme=(u.name);
+    Faculty.findOne({name:nme},(err,fac)=>{
+        if(err) console.log(err);
+        else{
+            if(fac===null){
+                req.flash("error","Right Now Faculty is not assigned any Class");
+                res.redirect("/classTimeTable");
+            }
+            else{
+             console.log(fac);
+            res.render("searchFaculty.ejs",{fac:fac,c:1});   
+            }
+        }
+    });
+});
+
 app.get("/Facultytimetable",isLoggedIn,(req,res)=>{
     var u=req.user;
     var nme=(u.name);
@@ -1013,53 +1038,68 @@ app.post("/deleteFacPeriod",isLoggedIn,(req,res)=>{
         if(err) console.log(err);
         else{
         
-        req.flash("success","click on the cell to cancel the class!");///not working still*********
+        req.flash("success","click on the cell to cancel the class!");//
         res.render("deleteFacPeriod.ejs",{fac:fac});
         }
     });
 });
 
 app.get("/deleteFacPeriod/:time/:facID",isLoggedIn,(req,res)=>{
-    var time=req.params.time;
+    var time=parseInt(req.params.time);
     var facID=req.params.facID;
     Faculty.findById(facID,(err,fac)=>{
         if(err) console.log(err);
         else{
           
          // var roomNumber=fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(time)];
-          fac.facDetails.timetable.splice(fac.facDetails.timetable.indexOf(time),1); 
-          fac.facDetails.roomNumber.splice(fac.facDetails.timetable.indexOf(time),1); 
-          fac.facDetails.courseName.splice(fac.facDetails.timetable.indexOf(time),1); 
-          fac.save();
+         
+          //fac.save();
           //console.log(fac);
           
-          var section=fac.facDetails.section;
-          var year=fac.facDetails.year;
+          //console.log(fac.facDetails.timetable.indexOf(time));
           
+          var section=fac.facDetails.section[fac.facDetails.timetable.indexOf(time)];
+          var year=fac.facDetails.year[fac.facDetails.timetable.indexOf(time)];
+          console.log("section",section,year);
           
           TimeTable.findOne({section:section,year:year},(err,tim)=>{
               if(err) console.log(err);
               else{
-                  var roomN=tim.roomAlloted[tim.roomAlloted.indexOf(time)];
-                  tim.timeAlloted.splice(tim.timeAlloted.indexOf(time),1);
+                  
+                  var roomN=tim.roomAlloted[tim.timeAlloted.indexOf(time)];
+                  console.log("room Number",roomN,tim.timeAlloted.indexOf(time),time);
+                  
                   tim.roomAlloted.splice(tim.timeAlloted.indexOf(time),1);
                   tim.courseName.splice(tim.timeAlloted.indexOf(time),1);
-                  
+                  tim.timeAlloted.splice(tim.timeAlloted.indexOf(time),1);
+                  console.log('tims before',tim);
                   tim.save();
-                  console.log(tim);
+                  console.log('tims after is',tim);
+                  
                   
                   OverallTimeTable.findOne({},(err,ovt)=>{
                       if(err) console.log(err);
                       else{
                         for(var j=0;j<ovt.times.length;j++){
+                            console.log(ovt.times[j],time,ovt.rooms[j],roomN);
                             if(ovt.times[j]===time && ovt.rooms[j]===roomN){
+                                console.log('in');
                                 ovt.times.splice(j,1);
                                 ovt.rooms.splice(j,1);
                                 break;
                             }
                         }
                     ovt.save();
-                    console.log(ovt);
+                    console.log("All timetable is",ovt);
+                    
+                      fac.facDetails.timetable.splice(fac.facDetails.timetable.indexOf(time),1); 
+                      fac.facDetails.roomNumber.splice(fac.facDetails.timetable.indexOf(time),1); 
+                      fac.facDetails.courseName.splice(fac.facDetails.timetable.indexOf(time),1); 
+                      fac.facDetails.section.splice(fac.facDetails.timetable.indexOf(time),1); 
+                      fac.facDetails.year.splice(fac.facDetails.timetable.indexOf(time),1); 
+                      
+                      fac.save();
+                      console.log('fac is',fac);
                   req.flash("success","Class cancelled and Updated in timetable");
                   res.redirect("/FacultyTimeTable");
                       }
@@ -1091,7 +1131,7 @@ app.post("/newSubject/:id",(req,res)=>{ ///************add new subjects to exist
     
      var rms=[];
     var id=req.params.id;
-    var facD={section:req.body.section,year:req.body.year,timetable:[0]};
+    var facD={section:[],year:[],timetable:[0]};
     var fac={name:req.body.facultyAssigned,facDetails:facD};
     var noOfClassesPerWeek=req.body.noOfClassesPerWeek;
     
@@ -1157,6 +1197,8 @@ app.post("/newSubject/:id",(req,res)=>{ ///************add new subjects to exist
           }  
         }
         
+        fac11.facDetails.year=(new Array(facTimeArray.length).fill(req.body.year));
+        fac11.facDetails.section=(new Array(facTimeArray.length).fill(req.body.section));
         fac11.facDetails.courseName=(new Array(facTimeArray.length).fill(req.body.subjectName));
         fac11.facDetails.timetable=facTimeArray;//assigning the time to the faculty timetable
         for(var t=0;t<facTimeArray.length;t++){
@@ -1165,7 +1207,7 @@ app.post("/newSubject/:id",(req,res)=>{ ///************add new subjects to exist
         //tim.courseName=(new Array(facTimeArray.length).fill(req.body.subjectName));
         console.log(tim);
         
-        /////////////************BELOW APRIL 1 code************////////////////
+        
         
        
         
@@ -1332,7 +1374,7 @@ app.post("/newSubject/:id",(req,res)=>{ ///************add new subjects to exist
               while(checkIter!==result.length){
                   for(i=0;i<repetition.length;i++){
                       console.log('fin4');
-                      if((!(tim.timeAlloted.includes(result[i]))) && (!(facDet[0].facDetails.timetable.includes(result[i])))){
+                      if((!(tim.timeAlloted.includes(repetition[i]))) && (!(facDet[0].facDetails.timetable.includes(repetition[i])))){
                           tim.timeAlloted.push(repetition[i]);
                           facTimeArray.push(repetition[i]);
                           checkIter+=1;
@@ -1347,6 +1389,8 @@ app.post("/newSubject/:id",(req,res)=>{ ///************add new subjects to exist
             for(var e=0;e<facTimeArray.length;e++){//**********pushing timeslots into already existing time slots of that faculty*******///
                 facDet[0].facDetails.timetable.push(facTimeArray[e]);
                 facDet[0].facDetails.courseName.push(req.body.subjectName);
+                facDet[0].facDetails.section.push(req.body.section);
+                facDet[0].facDetails.year.push(req.body.year);
                 tim.courseName.push(req.body.subjectName);
                 console.log('ffff actually in111');
             }
@@ -1481,6 +1525,238 @@ app.get("/seeAllTimeTable/:year/:section",isLoggedIn,(req,res)=>{
     });
 });
 
+//************Sprint 2 Coding**************************/////
+
+app.get("/facultyDashboard",(req,res)=>{
+    res.render("facultyDashboard.ejs");
+});
+
+app.get("/replaceClass",isLoggedIn,(req,res)=>{
+    var nme=req.user.name;
+    Faculty.findOne({name:nme},(err,fac)=>{
+        if(err) console.log(err);
+        else{
+            if(fac===null){
+                req.flash("error","Right Now Faculty is not assigned any Class");
+                res.redirect("/facultyDashboard");
+            }
+            else{
+             console.log(fac);
+            res.render("replaceClass.ejs",{c:0});   
+            }
+        }
+    });
+});
+app.post("/replaceClass",isLoggedIn,(req,res)=>{
+    var roomNumber=['A-101','A-102','A-103','B-104','B-105','B-106','A-107','B-108','C-109','C-110'];
+    var availableClass=[];
+    var bookedClass=[];
+    var day=parseInt(req.body.day);
+    var time=parseInt(req.body.time);
+    var calc=day+time;
+    OverallTimeTable.findOne({},(err,ovt)=>{
+        if(err) console.log(err);
+        else{
+            //console.log(ovt.times);
+             for(var q=0;q<ovt.times.length;q++){
+                 if(ovt.times[q]===calc){
+                     bookedClass.push(ovt.rooms[q]);
+                 }
+             }
+            
+                for(var f=0;f<roomNumber.length;f++){
+                    if(!(bookedClass.includes(roomNumber[f]))){
+                        //console.log(roomNumber[f]);
+                        availableClass.push(roomNumber[f]);
+                    }
+                }
+                //console.log(availableClass);
+            //}
+            res.render("replaceClass.ejs",{c:1,availableClass:availableClass,calc:calc});
+        }
+    });
+});
+
+app.get("/replaceClass/:roomNumber/:time",(req,res)=>{
+    var room=req.params.roomNumber;
+    var u=req.user.name;
+    var calc=parseInt(req.params.time);
+    Faculty.find({name:u},(err,fac)=>{
+        if(err) console.log(err);
+        else{
+            var chckRoom=fac[0].facDetails.roomNumber[fac[0].facDetails.timetable.indexOf(calc)];
+            var chckSection=fac[0].facDetails.section[fac[0].facDetails.timetable.indexOf(calc)];
+            var chckYear=parseInt(fac[0].facDetails.year[fac[0].facDetails.timetable.indexOf(calc)]);
+            fac[0].facDetails.roomNumber.splice(fac[0].facDetails.timetable.indexOf(calc),1,room);
+            fac[0].save();
+            OverallTimeTable.findOne({},(err,ovt)=>{
+                if(err) console.log(err);
+                else{
+                    for(var i=0;i<ovt.times.length;i++){
+                        if(ovt.times[i]===calc && ovt.rooms[i]===chckRoom){
+                            ovt.rooms.splice(i,1,room);
+                            break;
+                        }
+                    }
+                    //ovt.rooms[i]=room;
+                    
+                    
+                    TimeTable.findOne({year:chckYear,section:chckSection},(err,tim)=>{
+                        if(err) console.log(err);
+                        else{
+                            tim.roomAlloted.splice(tim.timeAlloted.indexOf(calc),1,room);
+                            tim.save();
+                            ovt.save();
+                            console.log(fac[0]);
+                             console.log(tim);
+                             console.log(ovt);
+                             var dict={29:'Monday 9AM',30:'Monday 10AM',31:'Monday 11:15AM',32:'Monday 12:15PM',33:'Monday 2PM',34:'Monday 3PM',
+                                        35:'Tuesday 9AM',36:'Tuesday 10AM',37:'Tuesday 11:15AM',38:'Tuesday 12:15PM',39:'Tuesday 2PM',40:'Tuesday 3PM',
+                                        41:'Wednesday 9AM',42:'Wednesday 10AM',43:'Wednesday 11:15AM',44:'Wednesday 12:15PM',45:'Wednesday 2PM',46:'Wednesday 3PM',
+                                        47:'Thursday 9AM',48:'Thursday 10AM',49:'Thursday 11:15AM',50:'Thursday 12:15PM',51:'Thursday 2PM',52:'Thursday 3PM',
+                                        53:'Friday 9AM',54:'Friday 10AM',55:'Friday 11:15AM',56:'Friday 12:15PM',57:'Friday 2PM',58:'Friday 3PM'};
+                             User.find({year:chckYear,section:chckSection},(err,users)=>{
+                                if(err) console.log(err);
+                                else{
+                                    if(users.length!==0){
+                                        for(var v=0;v<users.length;v++){
+                                            users[v].classChange.time.push(dict[calc]);
+                                            users[v].classChange.from.push(chckRoom);
+                                            users[v].classChange.to.push(room);
+                                            users[v].save();
+                                        }
+                                    }
+                                    
+                                }
+                            });
+                             
+                            req.flash("success","Room replaced with the new one!");
+                            res.redirect("/facultyDashboard");
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+app.get("/changeClassTimings",(req,res)=>{
+    Faculty.findOne({name:req.user.name},(err,fac)=>{
+        if(err) console.log(err);
+        else{
+            if(fac===null || fac.length===0){
+                req.flash("error","Faculty is not assigned TimeTable yet");
+                res.redirect("/facultyDashboard");
+            }
+            else{
+             req.flash("success","select a cell to change its class timings");
+             res.render("changeClassTimings.ejs",{fac:fac});
+            }
+        }
+    });
+});
+
+app.get("/changeClassTimings/:time/:room",(req,res)=>{
+    res.render("selectNewClassTime.ejs",{time:req.params.time,room:req.params.room});
+});
+
+app.post("/changeClassTimings",(req,res)=>{
+     var roomNumber=['A-101','A-102','A-103','B-104','B-105','B-106','A-107','B-108','C-109','C-110'];
+    var timeChangeTo=(parseInt(req.body.time1)+parseInt(req.body.day));
+    var fromTime=parseInt(req.body.time);
+    console.log(fromTime,timeChangeTo,req.body.room);
+    var room=req.body.room;
+    console.log('in1');
+    Faculty.findOne({name:req.user.name},(err,fac)=>{
+        if(err) console.log(err);
+        else{
+            var yr=fac.facDetails.year[fac.facDetails.timetable.indexOf(fromTime)];
+            var sec=fac.facDetails.section[fac.facDetails.timetable.indexOf(fromTime)];
+            OverallTimeTable.findOne({},(err,ovt)=>{
+                if(err) console.log(err);
+                else{
+                    var roomBooked = [], i = -1;
+                    var roomAvailable=[];
+                    while ((i = ovt.times.indexOf(timeChangeTo, i+1)) != -1){
+                        roomBooked.push(ovt.rooms[i]);
+                    }
+                    for(var k=0;k<roomNumber.length;k++){
+                     if(!(roomBooked.includes(roomNumber[k]))){
+                         roomAvailable.push(roomNumber[k]);
+                     }
+                    }
+                    console.log('in2');
+                    var newRoom = roomAvailable[Math.floor(Math.random() * roomAvailable.length)];
+                    console.log("newRoom",newRoom);
+                    for(var t=0;t<ovt.rooms.length;t++){
+                        if(ovt.rooms[t]===req.body.room && ovt.times[t]===fromTime){
+                            ovt.rooms.splice(t,1,newRoom);
+                            ovt.times.splice(t,1,timeChangeTo);
+                        }
+                    }
+                    ovt.save();
+                    fac.facDetails.roomNumber.splice(fac.facDetails.timetable.indexOf(fromTime),1,newRoom);
+                    fac.facDetails.timetable.splice(fac.facDetails.timetable.indexOf(fromTime),1,timeChangeTo);
+                    fac.save();
+                    console.log('in3');
+                    TimeTable.findOne({year:yr,section:sec},(err,tim)=>{
+                        if(err) console.log(err);
+                        else{
+                            tim.roomAlloted.splice(tim.timeAlloted.indexOf(fromTime),1,newRoom);
+                            tim.timeAlloted.splice(tim.timeAlloted.indexOf(fromTime),1,timeChangeTo);
+                            tim.save();
+                            
+                            var dict={29:'Monday 9AM',30:'Monday 10AM',31:'Monday 11:15AM',32:'Monday 12:15PM',33:'Monday 2PM',34:'Monday 3PM',
+                                        35:'Tuesday 9AM',36:'Tuesday 10AM',37:'Tuesday 11:15AM',38:'Tuesday 12:15PM',39:'Tuesday 2PM',40:'Tuesday 3PM',
+                                        41:'Wednesday 9AM',42:'Wednesday 10AM',43:'Wednesday 11:15AM',44:'Wednesday 12:15PM',45:'Wednesday 2PM',46:'Wednesday 3PM',
+                                        47:'Thursday 9AM',48:'Thursday 10AM',49:'Thursday 11:15AM',50:'Thursday 12:15PM',51:'Thursday 2PM',52:'Thursday 3PM',
+                                        53:'Friday 9AM',54:'Friday 10AM',55:'Friday 11:15AM',56:'Friday 12:15PM',57:'Friday 2PM',58:'Friday 3PM'};
+                            User.find({year:yr,section:sec},(err,users)=>{
+                                if(err) console.log(err);
+                                else{
+                                    if(users.length!==0){
+                                        for(var v=0;v<users.length;v++){
+                                            users[v].timeChange.fromTime.push(dict[fromTime]);
+                                            users[v].timeChange.toTime.push(dict[timeChangeTo]);
+                                            users[v].save();
+                                        }
+                                    }
+                                    
+                                }
+                            });
+                            
+                            req.flash("success","Class timings changed, please view the timetable for the new slot and room");
+                            res.redirect("/facultyDashboard");
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+app.get("/searchFaculty",(req,res)=>{
+   res.render("searchFaculty.ejs",{c:0}); 
+});
+app.post("/searchFaculty",(req,res)=>{
+    var faculty=req.body.faculty;
+    Faculty.findOne({name:faculty},(err,fac)=>{
+        if(err) console.log(err);
+        else{
+            if(fac===null || fac.length===0){
+                req.flash("error","No Faculty Found");
+                res.redirect("/facultyDashboard");
+            }
+            else{
+                res.render("searchFaculty.ejs",{fac:fac,c:1});
+            }
+        }
+    });
+});
+
+app.get("/scanQR",(req,res)=>{
+    res.render("scanQR.ejs");
+});
 
 
 

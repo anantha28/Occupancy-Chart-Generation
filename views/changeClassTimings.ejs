@@ -3,7 +3,7 @@
 <head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-	<title>Table V03</title>
+	<title>Change Class Timings</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -11,103 +11,6 @@
 
 <style type="text/css">
 	
-	#toast {
-    visibility: hidden;
-    max-width: 50px;
-    height: 50px;
-    /*margin-left: -125px;*/
-    margin: auto;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-
-    position: fixed;
-    z-index: 1;
-    left: 0;right:0;
-    bottom: 30px;
-    font-size: 17px;
-    white-space: nowrap;
-}
-#toast #img{
-	width: 50px;
-	height: 50px;
-    
-    float: left;
-    
-    padding-top: 16px;
-    padding-bottom: 16px;
-    
-    box-sizing: border-box;
-
-    
-    background-color: #111;
-    color: #fff;
-}
-#toast #desc{
-
-    
-    color: #fff;
-   
-    padding: 16px;
-    
-    overflow: hidden;
-	white-space: nowrap;
-}
-
-#toast.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
-}
-
-@-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes expand {
-    from {min-width: 50px} 
-    to {min-width: 350px}
-}
-
-@keyframes expand {
-    from {min-width: 50px}
-    to {min-width: 350px}
-}
-@-webkit-keyframes stay {
-    from {min-width: 350px} 
-    to {min-width: 350px}
-}
-
-@keyframes stay {
-    from {min-width: 350px}
-    to {min-width: 350px}
-}
-@-webkit-keyframes shrink {
-    from {min-width: 350px;} 
-    to {min-width: 50px;}
-}
-
-@keyframes shrink {
-    from {min-width: 350px;} 
-    to {min-width: 50px;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 60px; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 60px; opacity: 0;}
-}
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
@@ -3338,7 +3241,7 @@ th, td {
 		  
 		  
 			<div class="wrap-table100">
-				<h4 style="text-align:center"><strong></strong></h4>
+				<h4 style="text-align:center"><strong>Select a cell to change its class timings</strong></h4>
 
 				<div class="table100 ver6 m-b-110">
 					<table data-vertable="ver6">
@@ -3360,25 +3263,25 @@ th, td {
               
 								<td class="column100 column1" data-column="column1">Monday </td>
 								<% if(fac.facDetails.timetable.includes(29)){ %>
-							    <td class="column100 column2" data-column="column2"><a href="/deleteFacPeriod/29/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(29)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(29)]%></a></td>
+							    <td class="column100 column2" data-column="column2"><a href="/changeClassTimings/29/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(29)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(29)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(29)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column2" data-column="column2">--</td>
 								<% } 
 								
 								if(fac.facDetails.timetable.includes(30)){ %>
-								<td class="column100 column3" data-column="column3"><a href="/deleteFacPeriod/30/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(30)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(30)]%></a></td>
+								<td class="column100 column3" data-column="column3"><a href="/changeClassTimings/30/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(30)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(30)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(30)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column3" data-column="column3">--</td>
 								<% } 
 								
 							  if(fac.facDetails.timetable.includes(31)){ %>
-								<td class="column100 column4" data-column="column4"><a href="/deleteFacPeriod/31/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(31)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(31)]%></a></td>
+								<td class="column100 column4" data-column="column4"><a href="/changeClassTimings/31/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(31)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(31)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(31)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column4" data-column="column4">--</td>
 								<% } 
 								
 								 if(fac.facDetails.timetable.includes(32)){ %>
-								<td class="column100 column5" data-column="column5"><a href="/deleteFacPeriod/32/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(32)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(32)]%></a></td>
+								<td class="column100 column5" data-column="column5"><a href="/changeClassTimings/32/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(32)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(32)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(32)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column5" data-column="column5">--</td>
 								<% } %>
@@ -3386,14 +3289,14 @@ th, td {
 									<td class="column100 column6" data-column="column6">LUNCH</td>
 								
 								 <% if(fac.facDetails.timetable.includes(33)){ %>
-								<td class="column100 column7" data-column="column7"><a href="/deleteFacPeriod/33/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(33)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(33)]%></a></td>
+								<td class="column100 column7" data-column="column7"><a href="/changeClassTimings/33/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(33)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(33)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(33)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column7" data-column="column7">--</td>
 								<% } 
 							
 								
 								if(fac.facDetails.timetable.includes(34)){ %>
-									<td class="column100 column8" data-column="column8"><a href="/deleteFacPeriod/34/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(34)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(34)]%></a></td>
+									<td class="column100 column8" data-column="column8"><a href="/changeClassTimings/34/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(34)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(34)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(34)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column8" data-column="column8">--</td>
 								<% } %>
@@ -3404,25 +3307,25 @@ th, td {
               
 								<td class="column100 column1" data-column="column1">Tuesday </td>
 								<% if(fac.facDetails.timetable.includes(35)){ %>
-								<td class="column100 column2" data-column="column2"><a href="/deleteFacPeriod/35/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(35)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(35)]%></a></td>
+								<td class="column100 column2" data-column="column2"><a href="/changeClassTimings/35/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(35)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(35)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(35)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column2" data-column="column2">--</td>
 								<% } 
 								
 								if(fac.facDetails.timetable.includes(36)){ %>
-								<td class="column100 column3" data-column="column3"><a href="/deleteFacPeriod/36/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(36)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(36)]%></a></td>
+								<td class="column100 column3" data-column="column3"><a href="/changeClassTimings/36/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(36)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(36)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(36)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column3" data-column="column3">--</td>
 								<% } 
 								
 							  if(fac.facDetails.timetable.includes(37)){ %>
-								<td class="column100 column4" data-column="column4"><a href="/deleteFacPeriod/37/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(37)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(37)]%></a></td>
+								<td class="column100 column4" data-column="column4"><a href="/changeClassTimings/37/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(37)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(37)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(37)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column4" data-column="column4">--</td>
 								<% } 
 								
 								 if(fac.facDetails.timetable.includes(38)){ %>
-								<td class="column100 column5" data-column="column5"><a href="/deleteFacPeriod/38/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(38)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(38)]%></a></td>
+								<td class="column100 column5" data-column="column5"><a href="/changeClassTimings/38/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(38)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(38)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(38)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column5" data-column="column5">--</td>
 								<% } %>
@@ -3430,14 +3333,14 @@ th, td {
 									<td class="column100 column6" data-column="column6">LUNCH</td>
 								
 								 <% if(fac.facDetails.timetable.includes(39)){ %>
-								<td class="column100 column7" data-column="column7"><a href="/deleteFacPeriod/39/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(39)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(39)]%></a></td>
+								<td class="column100 column7" data-column="column7"><a href="/changeClassTimings/39/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(39)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(39)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(39)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column7" data-column="column7">--</td>
 								<% } 
 							
 								
 								if(fac.facDetails.timetable.includes(40)){ %>
-								<td class="column100 column8" data-column="column8"><a href="/deleteFacPeriod/40/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(40)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(40)]%></a></td>
+								<td class="column100 column8" data-column="column8"><a href="/changeClassTimings/40/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(40)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(40)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(40)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column8" data-column="column8">--</td>
 								<% } %>
@@ -3448,25 +3351,25 @@ th, td {
               
 								<td class="column100 column1" data-column="column1">Wednesday </td>
 								<% if(fac.facDetails.timetable.includes(41)){ %>
-								<td class="column100 column2" data-column="column2"><a href="/deleteFacPeriod/41/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(41)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(41)]%></a></td>
+								<td class="column100 column2" data-column="column2"><a href="/changeClassTimings/41/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(41)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(41)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(41)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column2" data-column="column2">--</td>
 								<% } 
 								
 								if(fac.facDetails.timetable.includes(42)){ %>
-								<td class="column100 column3" data-column="column3"><a href="/deleteFacPeriod/42/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(42)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(42)]%></a></td>
+								<td class="column100 column3" data-column="column3"><a href="/changeClassTimings/42/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(42)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(42)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(42)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column3" data-column="column3">--</td>
 								<% } 
 								
 							  if(fac.facDetails.timetable.includes(43)){ %>
-								<td class="column100 column4" data-column="column4"><a href="/deleteFacPeriod/43/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(43)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(43)]%></a></td>
+								<td class="column100 column4" data-column="column4"><a href="/changeClassTimings/43/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(43)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(43)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(43)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column4" data-column="column4">--</td>
 								<% } 
 								
 								 if(fac.facDetails.timetable.includes(44)){ %>
-								<td class="column100 column5" data-column="column5"><a href="/deleteFacPeriod/44/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(44)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(44)]%></a></td>
+								<td class="column100 column5" data-column="column5"><a href="/changeClassTimings/44/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(44)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(44)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(44)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column5" data-column="column5">--</td>
 								<% } %>
@@ -3474,14 +3377,14 @@ th, td {
 									<td class="column100 column6" data-column="column6">LUNCH</td>
 								
 								 <% if(fac.facDetails.timetable.includes(45)){ %>
-								<td class="column100 column7" data-column="column7"><a href="/deleteFacPeriod/45/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(45)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(45)]%></a></td>
+								<td class="column100 column7" data-column="column7"><a href="/changeClassTimings/45/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(45)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(45)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(45)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column7" data-column="column7">--</td>
 								<% } 
 							
 								
 								if(fac.facDetails.timetable.includes(46)){ %>
-								<td class="column100 column8" data-column="column8"><a href="/deleteFacPeriod/46/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(46)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(46)]%></a></td>
+								<td class="column100 column8" data-column="column8"><a href="/changeClassTimings/46/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(46)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(46)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(46)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column8" data-column="column8">--</td>
 								<% } %>
@@ -3492,25 +3395,25 @@ th, td {
               
 								<td class="column100 column1" data-column="column1">Thursday </td>
 								<% if(fac.facDetails.timetable.includes(47)){ %>
-								<td class="column100 column2" data-column="column2"><a href="/deleteFacPeriod/47/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(47)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(47)]%></a></td>
+								<td class="column100 column2" data-column="column2"><a href="/changeClassTimings/47/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(47)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(47)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(47)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column2" data-column="column2">--</td>
 								<% } 
 								
 								if(fac.facDetails.timetable.includes(48)){ %>
-								<td class="column100 column3" data-column="column3"><a href="/deleteFacPeriod/48/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(48)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(48)]%></a></td>
+								<td class="column100 column3" data-column="column3"><a href="/changeClassTimings/48/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(48)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(48)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(48)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column3" data-column="column3">--</td>
 								<% } 
 								
 							  if(fac.facDetails.timetable.includes(49)){ %>
-								<td class="column100 column4" data-column="column4"><a href="/deleteFacPeriod/49/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(49)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(49)]%></a></td>
+								<td class="column100 column4" data-column="column4"><a href="/changeClassTimings/49/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(49)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(49)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(49)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column4" data-column="column4">--</td>
 								<% } 
 								
 								 if(fac.facDetails.timetable.includes(50)){ %>
-								<td class="column100 column5" data-column="column5"><a href="/deleteFacPeriod/50/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(50)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(50)]%></a></td>
+								<td class="column100 column5" data-column="column5"><a href="/changeClassTimings/50/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(50)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(50)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(50)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column5" data-column="column5">--</td>
 								<% } %>
@@ -3518,14 +3421,14 @@ th, td {
 									<td class="column100 column6" data-column="column6">LUNCH</td>
 								
 								 <% if(fac.facDetails.timetable.includes(51)){ %>
-								<td class="column100 column7" data-column="column7"><a href="/deleteFacPeriod/51/<%= fac._id %>" style="text-decoration:None;color:#ffffff" id='51'><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(51)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(51)]%></a></td>
+								<td class="column100 column7" data-column="column7"><a href="/changeClassTimings/51/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(51)]%>" style="text-decoration:None;color:#ffffff" id='51'><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(51)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(51)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column7" data-column="column7">--</td>
 								<% } 
 							
 								
 								if(fac.facDetails.timetable.includes(52)){ %>
-								<td class="column100 column8" data-column="column8"><a href="/deleteFacPeriod/52/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(52)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(52)]%></a></td>
+								<td class="column100 column8" data-column="column8"><a href="/changeClassTimings/52/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(52)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(52)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(52)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column8" data-column="column8">--</td>
 								<% } %>
@@ -3536,25 +3439,25 @@ th, td {
               
 								<td class="column100 column1" data-column="column1">Friday</td>
 								<% if(fac.facDetails.timetable.includes(53)){ %>
-								<td class="column100 column2" data-column="column2"><a href="/deleteFacPeriod/53/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(53)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(53)]%></a></td>
+								<td class="column100 column2" data-column="column2"><a href="/changeClassTimings/53/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(53)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(53)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(53)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column2" data-column="column2">--</td>
 								<% } 
 								
 								if(fac.facDetails.timetable.includes(54)){ %>
-								<td class="column100 column3" data-column="column3"><a href="/deleteFacPeriod/54/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(54)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(54)]%></a></td>
+								<td class="column100 column3" data-column="column3"><a href="/changeClassTimings/54/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(54)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(54)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(54)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column3" data-column="column3">--</td>
 								<% } 
 								
 							  if(fac.facDetails.timetable.includes(55)){ %>
-								<td class="column100 column4" data-column="column4"><a href="/deleteFacPeriod/55/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(55)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(55)]%></a></td>
+								<td class="column100 column4" data-column="column4"><a href="/changeClassTimings/55/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(55)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(55)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(55)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column4" data-column="column4">--</td>
 								<% } 
 								
 								 if(fac.facDetails.timetable.includes(56)){ %>
-								<td class="column100 column5" data-column="column5"><a href="/deleteFacPeriod/56/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(56)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(56)]%></a></td>
+								<td class="column100 column5" data-column="column5"><a href="/changeClassTimings/56/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(56)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(56)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(56)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column5" data-column="column5">--</td>
 								<% } %>
@@ -3562,14 +3465,14 @@ th, td {
 									<td class="column100 column6" data-column="column6">LUNCH</td>
 								
 								 <% if(fac.facDetails.timetable.includes(57)){ %>
-								<td class="column100 column7" data-column="column7"><a href="/deleteFacPeriod/57/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(57)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(57)]%></a></td>
+								<td class="column100 column7" data-column="column7"><a href="/changeClassTimings/57/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(57)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(57)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(57)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column7" data-column="column7">--</td>
 								<% } 
 							
 								
 								if(fac.facDetails.timetable.includes(58)){ %>
-								<td class="column100 column8" data-column="column8"><a href="/deleteFacPeriod/58/<%= fac._id %>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(58)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(58)]%></a></td>
+								<td class="column100 column8" data-column="column8"><a href="/changeClassTimings/58/<%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(58)]%>" style="text-decoration:None;color:#ffffff"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(58)]%><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(58)]%></a></td>
 								<% }else{ %>
 								<td class="column100 column8" data-column="column8">--</td>
 								<% } %>
@@ -3597,13 +3500,6 @@ th, td {
 		</div>
 	</div>
 	
-	<h2>Toast</h2>
-
-
-<div id="toast"><div id="img">Alert</div><div id="desc">Click on a particular cell to delete it</div></div>
-
-<!-- http://jsfiddle.net/m8x1g0q8/ -->
-	
 	<footer class="page-footer font-small pt-4" style="background:#343a40;margin-top:80px;padding-bottom:20px;padding-left:40%">
 
   <div class="container-fluid text-center text-md-left" style="text-align:center">
@@ -3628,14 +3524,18 @@ th, td {
   </div>
 
 </footer>
-
 <script>
-  $( document ).ready(function() {
-    var x = document.getElementById("toast")
-    x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 7000);
-});
+    setTimeout(function() {
+    $('.alert-success').fadeOut('fast');
+}, 40000);
+
+setTimeout(function() {
+    $('.alert-danger').fadeOut('fast');
+}, 40000);
+
 </script>
+
+
 
 
 </body>
