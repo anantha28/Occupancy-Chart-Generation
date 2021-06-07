@@ -166,6 +166,7 @@ app.get("/studentTimetable",isLoggedIn,(req,res)=>{
             }
             else{
                 console.log(tim);
+                //res.render("testDownload.ejs",{tim:tim});
                 res.render("specificClassTimeTable.ejs",{tim:tim});
             }
         }

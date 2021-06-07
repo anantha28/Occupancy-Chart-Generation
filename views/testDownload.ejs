@@ -131,115 +131,261 @@ td {
             </td>
             <td align="center" height="50" 
                 width="100">
-                <b>I<br>9:30-10:20</b>
+                <b>I<br>9:00-10:00</b>
             </td>
             <td align="center" height="50" 
                 width="100">
-                <b>II<br>10:20-11:10</b>
+                <b>II<br>10:00-11:00</b>
             </td>
             <td align="center" height="50" 
                 width="100">
-                <b>III<br>11:10-12:00</b>
+                <b>11:00-11:15</b>
             </td>
             <td align="center" height="50" 
                 width="100">
-                <b>12:00-12:40</b>
+                <b>III<br>11:15-12:15</b>
             </td>
             <td align="center" height="50" 
                 width="100">
-                <b>IV<br>12:40-1:30</b>
+                <b>IV<br>12:15-1:15</b>
             </td>
             <td align="center" height="50" 
                 width="100">
-                <b>V<br>1:30-2:20</b>
+                <b>1:15-2:00</b>
             </td>
             <td align="center" height="50" 
                 width="100">
-                <b>VI<br>2:20-3:10</b>
+                <b>V<br>2:00-3:00</b>
             </td>
             <td align="center" height="50" 
                 width="100">
-                <b>VII<br>3:10-4:00</b>
+                <b>VI<br>3:00-4:00</b>
             </td>
         </tr>
         <tr>
             <td align="center" height="50">
-                <b>Monday</b></td>
-                
-            <% if(fac.facDetails.timetable.includes(29)){ %>
-            <td align="center" height="50"><%= fac.facDetails.courseName[fac.facDetails.timetable.indexOf(29)]%><br><br><%= fac.facDetails.roomNumber[fac.facDetails.timetable.indexOf(29)]%></td>
-            <% }else{ %>
-            <td align="center" height="50">---</td>
-            <% } %>
-            
-            <td align="center" height="50">Mat</td>
-            <td align="center" height="50">Che</td>
-            <td rowspan="6" align="center" height="50">
+                <b>Monday</b>
+			</td>
+			
+            <% if(tim.timeAlloted.includes(29)){ %>
+			<td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(29)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(29)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(30)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(30)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(30)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% } %>
+			
+			<td rowspan="6" align="center" height="50">
+				<h2>B<br>R<br>E<br>A<br>K</h2>
+			</td>
+			
+            <% if(tim.timeAlloted.includes(31)){ %>
+			<td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(31)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(31)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(32)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(32)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(32)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% } %>
+			
+			<td rowspan="6" align="center" height="50">
                 <h2>L<br>U<br>N<br>C<br>H</h2>
             </td>
-            <td colspan="3" align="center" 
-                height="50">LAB</td>
-            <td align="center" height="50">Phy</td>
+            
+			<% if(tim.timeAlloted.includes(33)){ %>
+			<td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(33)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(33)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(34)){ %>
+			<td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(34)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(34)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% } %>
         </tr>
         <tr>
             <td align="center" height="50">
                 <b>Tuesday</b>
             </td>
-            <td colspan="3" align="center" 
-                height="50">LAB
-            </td>
-            <td align="center" height="50">Eng</td>
-            <td align="center" height="50">Che</td>
-            <td align="center" height="50">Mat</td>
-            <td align="center" height="50">SPORTS</td>
+			
+			<% if(tim.timeAlloted.includes(35)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(35)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(35)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(36)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(36)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(36)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(37)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(37)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(37)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(38)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(38)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(38)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(39)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(39)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(39)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(40)){ %>
+			<td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(40)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(40)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% } %>
         </tr>
         <tr>
             <td align="center" height="50">
                 <b>Wednesday</b>
             </td>
-            <td align="center" height="50">Mat</td>
-            <td align="center" height="50">phy</td>
-            <td align="center" height="50">Eng</td>
-            <td align="center" height="50">Che</td>
-            <td colspan="3" align="center" 
-                height="50">LIBRARY
-            </td>
+			
+			<% if(tim.timeAlloted.includes(41)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(41)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(41)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(42)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(42)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(42)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(43)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(43)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(43)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(44)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(44)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(44)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(45)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(45)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(45)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(46)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(46)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(46)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% } %>
         </tr>
         <tr>
             <td align="center" height="50">
                 <b>Thursday</b>
             </td>
-            <td align="center" height="50">Phy</td>
-            <td align="center" height="50">Eng</td>
-            <td align="center" height="50">Che</td>
-            <td colspan="3" align="center" 
-                height="50">LAB
-            </td>
-            <td align="center" height="50">Mat</td>
+			
+			<% if(tim.timeAlloted.includes(47)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(47)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(47)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(48)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(48)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(48)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(49)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(49)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(49)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(50)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(50)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(50)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(51)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(51)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(51)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(52)){ %>
+			<td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(52)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(52)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% } %>
         </tr>
         <tr>
             <td align="center" height="50">
                 <b>Friday</b>
             </td>
-            <td colspan="3" align="center" 
-                height="50">LAB
-            </td>
-            <td align="center" height="50">Mat</td>
-            <td align="center" height="50">Che</td>
-            <td align="center" height="50">Eng</td>
-            <td align="center" height="50">Phy</td>
+			
+			<% if(tim.timeAlloted.includes(53)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(53)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(53)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(54)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(54)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(54)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(55)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(55)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(55)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(56)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(56)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(56)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(57)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(57)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(57)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% }
+			
+			if(tim.timeAlloted.includes(58)){ %>
+            <td align="center" height="50"><%= tim.courseName[tim.timeAlloted.indexOf(58)]%><br><%= tim.roomAlloted[tim.timeAlloted.indexOf(58)] %></td>
+			<% }else{ %>
+			<td align="center" height="50">Free</td>
+			<% } %>
         </tr>
         <tr>
             <td align="center" height="50">
                 <b>Saturday</b>
             </td>
-            <td align="center" height="50">Eng</td>
-            <td align="center" height="50">Che</td>
-            <td align="center" height="50">Mat</td>
-            <td colspan="3" align="center" 
-                height="50">SEMINAR
-            </td>
-            <td align="center" height="50">SPORTS</td>
+			
+            <td align="center" height="50">Free</td>
+            <td align="center" height="50">Free</td>
+            <td align="center" height="50">Free</td>
+            <td align="center" height="50">Free</td>
+            <td align="center" height="50">Free</td>
+			<td align="center" height="50">Free</td>
         </tr>
     </table>
 	<br>
@@ -247,9 +393,6 @@ td {
 	<br>
     <input type="button" value="Download" id="btnConvert" >
     <br />
-    <div id="previewImage">
-    </div>
-
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
