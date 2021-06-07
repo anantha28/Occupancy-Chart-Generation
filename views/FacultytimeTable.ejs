@@ -3251,6 +3251,7 @@ th, td {
 <% } %> 
 	
 	<a class="btn btn-primary cmd" style="margin-left:450px" role="button">Download</a>
+	<input type="button" value="Download" id="btnConvert" >
 	
 	<div class="limiter">
 		<div class="container-table100">
@@ -3574,6 +3575,23 @@ th, td {
     }
   );
   pdf.save('Timetable.pdf');});	
+  
+  
+  
+  $(document).ready(function() {
+
+			$("#btnConvert").on('click', function () {
+                html2canvas(document.getElementsByClassName("wrap-table100")).then(function (canvas) {                    
+					var anchorTag = document.createElement("a");
+                    document.body.appendChild(anchorTag);
+
+					var imgData = canvas.toDataURL('image/png')
+					var pdf = new jsPDF('landscape');
+					pdf.addImage(imgData,'PNG',10,10, 280, 260);
+					pdf.save('Timetable.pdf');});
+                    
+                });
+			});
 	
   </script>
 

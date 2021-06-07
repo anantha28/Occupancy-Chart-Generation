@@ -1005,6 +1005,7 @@ app.get("/Facultytimetable",isLoggedIn,(req,res)=>{
             }
             else{
              console.log(fac);
+             //res.render("testDownload.ejs",{fac:fac});
             res.render("FacultytimeTable.ejs",{fac:fac});   
             }
         }
