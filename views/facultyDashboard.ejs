@@ -146,22 +146,30 @@ a.button {
            Occupancy Chart Generator
         </title>
         <body>
-             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-           <a class="navbar-brand" href="#"><strong>Occupancy Chart Generator</strong></a>
+           <a class="navbar-brand" href="/facultyDashboard"><strong>Occupancy Chart Generator</strong></a>
+           
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  
+  
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-   
-  
 	
 	<% if(!currentUser){ %>
             <a class="btn btn-primary" href="/login" role="button">Login</a>
             <%} else{ %>
-            <a href="#"  style="color:#ffffff;margin-right:18px;margin-left:700px"> <%= currentUser.username %></a>
-            <a class="btn btn-info" href="/logout" role="button">Logout</a>
+            
+            <a href="/reportissue"  style="color:#ffffff;margin-left:20px;"> Report Bugs</a>
+            <a href="/FAQ"  style="color:#ffffff;margin-left:20px;">FAQ</a>
+              <a href="/helpguide"  style="color:#ffffff;margin-left:20px;">Help Guide</a>
+            <a href="/suggestions"  style="color:#ffffff;margin-left:20px;">Rate Us</a>
+            <a href="/aboutus"  style="color:#ffffff;margin-right:250px;margin-left:20px">About Us</a>
+            
+            <a href="#"  style="color:#ffffff;margin-left:0px;"><%=currentUser.username%></a>
+            <a class="btn btn-info" href="/logout" role="button" style="margin-left:10px">Logout</a>
             
             <% } %>
 	
@@ -169,6 +177,7 @@ a.button {
 
         </div>
  </nav>
+ 
  
              <% if(error.length>0){%>
 <div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
@@ -195,9 +204,9 @@ a.button {
           
           <div class="col-lg-4" style="margin-top:30px;margin-left:0px">
                 <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                  <img class="card-img-top" src="https://res.cloudinary.com/duozkjp1p/image/upload/v1617719443/view_qnmlui.jpg" alt="Card image cap">
+                  <img class="card-img-top" src="https://res.cloudinary.com/duozkjp1p/image/upload/v1623147317/Tabs-bro_ciq6wj.png" alt="Card image cap">
                   <div class="card-body">
-                    <h5 class="card-title">View/Download my class schedules</h5>
+                    <h5 class="card-title">View class alloted and the subjects</h5>
                     <p class="card-text">Know about particular class timetable by entering year and section details.</p>
                     <a href="/ViewFacultytimeTable" class="btn btn-info details">View Timetable</a>
                   </div>
@@ -207,7 +216,7 @@ a.button {
             
             <div class="col-lg-4" style="margin-top:30px">
                 <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                  <img class="card-img-top" src="https://res.cloudinary.com/duozkjp1p/image/upload/v1617719441/generate_m0bwzo.jpg" alt="Card image cap">
+                  <img class="card-img-top" src="https://static.thenounproject.com/png/124069-200.png" alt="Card image cap">
                   <div class="card-body">
                     <h5 class="card-title">Replace room alloted with another</h5>
                     <p class="card-text">Select the day and date to change the room alloted to the new one from the old one.</p>
@@ -220,7 +229,7 @@ a.button {
             
             <div class="col-lg-4" style="margin-top:30px">
                 <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                  <img class="card-img-top" src="https://res.cloudinary.com/duozkjp1p/image/upload/v1617719635/aa_bpmz1n.jpg" alt="Card image cap">
+                  <img class="card-img-top" src="https://image.freepik.com/free-vector/flat-design-characters-doing-time-management_23-2148274068.jpg" alt="Card image cap" style="width:276px;height:286px">
                   <div class="card-body">
                     <h5 class="card-title">Change Current Class Timings</h5>
                     <p class="card-text">Change the current timeslots to the time which is comfortable for you to teach.</p>
@@ -242,11 +251,11 @@ a.button {
             
             <div class="col-lg-4" style="margin-top:30px">
                 <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                  <img class="card-img-top" src="https://res.cloudinary.com/duozkjp1p/image/upload/v1623064072/Post-pana_r9vacj.png" alt="Card image cap">
+                  <img class="card-img-top" src="https://res.cloudinary.com/duozkjp1p/image/upload/v1623147196/Instruction_manual-rafiki_hfecwp.png" alt="Card image cap">
                   <div class="card-body">
-                    <h5 class="card-title">Edit Image Layout</h5>
-                    <p class="card-text">Incase of Renovation to navigate users to correct class, use this edit layout option.</p>
-                    <a href="/layout" class="btn btn-info layout">Edit layout</a>
+                    <h5 class="card-title">Faculty Help Guide</h5>
+                    <p class="card-text">Know what are the features in the Faculty Dashboard page and how they can help you</p>
+                    <a href="/helpguide" class="btn btn-info layout">Help guide</a>
                   </div>
                 </div>
             </div>

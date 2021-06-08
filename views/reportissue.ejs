@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,16 +45,7 @@ background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
 	padding: 3px 0 20px;
 	margin-bottom: 40px;
 }
-.form-detail h2::after {
-	background: #3786bd;
-	width: 50px;
-	height: 2px;
-	content: "";
-	position: absolute;
-	top: 100%;
-	left: 50%;
-  transform: translateX(-50%);
-}
+
 .form-detail .form-row {
 	position: relative;
 }
@@ -123,89 +113,35 @@ background-image: linear-gradient(315deg, #7fcec5 0%, #14557b 74%);
 
 </head>
 <body>
-    
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-           <a class="navbar-brand" href="/adminDashboard"><strong>Occupancy Chart Generator</strong></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-   
-  
 	
-	<% if(!currentUser){ %>
-            <a class="btn btn-primary" href="/login" role="button">Login</a>
-            <%} else{ %>
-            <a href="#"  style="color:#ffffff;margin-right:18px;margin-left:700px"> <%= currentUser.username %></a>
-            <a class="btn btn-info" href="/logout" role="button">Logout</a>
-            
-            <% } %>
-	
-  </div>
-
-        </div>
- </nav>
- 
-             <% if(error.length>0){%>
+    <% if(error.length>0){%>
 <div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
 <% }if(success.length>0){%>
 <div class="alert alert-success container" style="margin-top:0px;"><%=success%></div>
-<% } %> 
+<% } %>
+    
 
-         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  
-   
- <a class="btn btn-info back" href="/adminDashboard" role="button" style="Display:None">adminDashboard</a>
+
 
 <div class="page-content">
          
 <div class="form-v5-content">
-<form class="form-detail" action="/classTimeTable" method="POST">
-<h2>Search TimeTable by Section and Year</h2>
+<form class="form-detail" action="/reportissue" method="POST">
+<h2>Have any issues?</h2>
 <div class="form-row">
-<input type="number" name="year" id="full-name" class="input-text" placeholder="Enter Year of Study" required>
+<label for="full-name">Email:</label>
+<input type="text" name="username" id="full-name" class="input-text" placeholder="Enter your mail-id" required>
 </div>
-<div class="form-row">
-<input type="text" name="section" id="full-name" class="input-text" placeholder="Enter Section" required>
-</div>
+<label for="full-name">Issue:</label>
+<input type="text"  name="report" placeholder="Enter your issue" required >
 <div class="form-row-last">
-<input type="submit" name="OTPverify" class="register" value="Submit">
+<input type="submit" name="ReportIssue" class="register" value="ReportIssue" >
 </div>
 </form>
 </div>
 </div>
 
-<footer class="page-footer font-small pt-4" style="background:#343a40;margin-top:80px;padding-bottom:20px;padding-left:40%">
 
-  <div class="container-fluid text-center text-md-left" style="text-align:center">
-
-    <div class="row">
-
-      <div class="col-md-6 mt-md-0 mt-3">
-
-        <h5 class="text-light" style="margin-left:2%;padding-left:17%"> Contact Us:</h5>
-        
-        <br>
-		
-		 <a href="#" style="color:#ffffff;font-size:18px;margin-left:2%;float:left"><i class="fas fa-envelope fa-sm"></i> se.chartgeneration@gmail.com </a>
-		 <br>
-	
-      </div>
-
-      <hr class="clearfix w-100 d-md-none pb-3">
-      
-    </div>
-
-  </div>
-
-</footer>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script type="text/javascript">
@@ -221,7 +157,6 @@ $(document).ready(function() {
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'UA-23581568-13');
 </script>
 </body>

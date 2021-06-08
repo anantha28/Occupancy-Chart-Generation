@@ -122,7 +122,7 @@ fileinput.addEventListener('change', e => {
   .then(qrCodeMessage => {
     // success, use qrCodeMessage
     console.log(qrCodeMessage);
-    alert(qrCodeMessage);
+    //alert(qrCodeMessage);
     window.location.assign(qrCodeMessage);
   })
   .catch(err => {

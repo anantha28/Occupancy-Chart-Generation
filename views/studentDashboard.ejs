@@ -34,7 +34,7 @@ header {
 #popUp {
   position: fixed;
   max-width: 400px;
-  height: 225px;
+  height: 245px;
   background: rgba(236, 240, 241, 1);
   border: 7px solid #fff;
   bottom: 400;
@@ -136,6 +136,115 @@ a.button {
 }
 
 
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notification-drop {
+  font-family: 'Ubuntu', sans-serif;
+  color: #444;
+}
+.notification-drop .item {
+  padding: 10px;
+  font-size: 18px;
+  position: relative;
+  border-bottom: 1px solid #ddd;
+}
+.notification-drop .item:hover {
+  cursor: pointer;
+}
+.notification-drop .item i {
+  margin-left: 10px;
+}
+.notification-drop .item ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background: #f1f1f1;
+  left: -300px;
+  right: 0;
+  z-index: 1;
+  border-top: 1px solid #ddd;
+}
+.notification-drop .item ul li {
+  font-size: 16px;
+  padding: 15px 0 15px 25px;
+}
+.notification-drop .item ul li:hover {
+  background: #ddd;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+@media screen and (min-width: 500px) {
+  .notification-drop {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .notification-drop .item {
+    border: none;
+  }
+}
+
+
+
+.notification-bell{
+  font-size: 20px;
+}
+
+.btn__badge {
+  background: #FF5D5D;
+  color: white;
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  right: 0px;
+  padding:  3px 10px;
+  border-radius: 50%;
+}
+
+.pulse-button {
+  box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
+  -webkit-animation: pulse 1.5s infinite;
+}
+
+.pulse-button:hover {
+  -webkit-animation: none;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+  70% {
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
+  }
+  100% {
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+
+.notification-text{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.notification-text span{
+  float: right;
+}
       </style>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <meta charset="utf-8">
@@ -154,19 +263,28 @@ a.button {
           
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-           <a class="navbar-brand" href="#"><strong>Occupancy Chart Generator</strong></a>
+           <a class="navbar-brand" href="/studentDashboard"><strong>Occupancy Chart Generator</strong></a>
+           
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  
+  
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-  
 	
 	<% if(!currentUser){ %>
             <a class="btn btn-primary" href="/login" role="button">Login</a>
             <%} else{ %>
-            <a href="#"  style="color:#ffffff;margin-right:18px;margin-left:800px"> <%= currentUser.username %></a>
-            <a class="btn btn-info" href="/logout" role="button">Logout</a>
+            
+            <a href="/reportissue"  style="color:#ffffff;margin-left:20px;"> ReportBugs</a>
+            <a href="/FAQ"  style="color:#ffffff;margin-left:20px;">FAQ</a>
+              <a href="/helpguide"  style="color:#ffffff;margin-left:20px;">HelpGuide</a>
+            <a href="/suggestions"  style="color:#ffffff;margin-left:20px;">RateUs</a>
+            <a href="/aboutus"  style="color:#ffffff;margin-right:250px;margin-left:20px">About Us</a>
+            
+            <a href="#"  style="color:#ffffff;margin-left:0px;"><%=currentUser.username%></a>
+            <a class="btn btn-info" href="/logout" role="button" style="margin-left:10px">Logout</a>
             
             <% } %>
 	
@@ -187,33 +305,34 @@ a.button {
   crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         
-        
-        <div id="body">
-  <header>
-  
-  <div id="popUp">
-    <div id="close" class="close"><i class="fa fa-times"></i></div>
-    <div id="new"><span>Notification</span></div>
-
-    <% if(currentUser.classChange.time.length===0 && currentUser.timeChange.fromTime.length===0) {%>
-    <h2><strong>No Notification is there for you! </strong></h2>
+        <ul class="notification-drop" style="margin-right:220px">
+    <li class="item">
+      <i class="fa fa-bell fa-2x notification-bell" aria-hidden="true"></i> <span class="btn__badge pulse-button ">new</span>     
+      <ul>
+        <% if(currentUser.classChange.time.length===0 && currentUser.timeChange.fromTime.length===0) {%>
+    <li><strong>No Notification is there for you! </strong></li>
     <% }else{ if(currentUser.classChange.time.length!==0){ for(var i=currentUser.classChange.time.length-1;i>=currentUser.classChange.time.length-1;i--){ %>
-    <h2><%= currentUser.classChange.time[i] %> class is shifted from <%= currentUser.classChange.from[i] %> to <%= currentUser.classChange.to[i] %></h2>
-    <hr>
+    <li><%= currentUser.classChange.time[i] %> class is shifted from <%= currentUser.classChange.from[i] %> to <%= currentUser.classChange.to[i] %></li>
+   
     <% } } if(currentUser.timeChange.fromTime.length!==0){ for(var i=currentUser.timeChange.fromTime.length-1;i>=currentUser.timeChange.fromTime.length-1;i--){ %>
-     <h2>Class on <%= currentUser.timeChange.fromTime[i] %> is changed to <%= currentUser.timeChange.toTime[i] %> </h2>
-     <hr>
+     <li>Class on <%= currentUser.timeChange.fromTime[i] %> is changed to <%= currentUser.timeChange.toTime[i] %> </li>
+   
      <% } } } %>
     
-    
-    
-    <a href="#" target="_blank" class="btn-grey btn-sm btn">Reload Page</a>
-  </div>
-  <div id="plus"><span>NEW<br>&nbsp;&nbsp;<i class="fa fa-plus"></i></span></div>
-
-     <div class="row" style="display:flex; flex-wrap:wrap;margin:2px;">
-  
-   <div class="col-lg-4" style="margin-top:30px;margin-left:450px">
+      </ul>
+    </li>
+  </ul>
+        
+        
+        
+        
+        <div class="container">
+        
+            
+        <div class="row" style="display:flex; flex-wrap:wrap;margin:2px;">
+          
+          
+          <div class="col-lg-4" style="margin-top:30px;">
                 <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-right:0px">
                   <img class="card-img-top" src="https://res.cloudinary.com/duozkjp1p/image/upload/v1617689886/timetable-rubber-stamp-vector-15952572_o6c8sd.jpg" alt="Card image cap" style="height:286px">
                   <div class="card-body">
@@ -222,9 +341,10 @@ a.button {
                     <a href="/studentTimetable" class="btn btn-info details">View Timetable</a>
                   </div>
                 </div>
-    </div>
-    
-     <div class="col-lg-4" style="margin-top:30px;margin-left:0px">
+            </div>
+            
+            
+            <div class="col-lg-4" style="margin-top:30px">
                 <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                   <img class="card-img-top" src="https://res.cloudinary.com/duozkjp1p/image/upload/v1623060711/search-concept-landing-page_52683-21294_kgcukp.jpg" alt="Card image cap" style="height:286px">
                   <div class="card-body">
@@ -233,9 +353,11 @@ a.button {
                     <a href="/searchFaculty" class="btn btn-info details">Search Faculty</a>
                   </div>
                 </div>
-    </div>
-  
-  <div class="col-lg-4" style="margin-top:30px;margin-left:450px">
+            </div>
+            
+            
+            
+            <div class="col-lg-4" style="margin-top:30px">
                 <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-right:0px">
                   <img class="card-img-top" src="https://image.freepik.com/free-vector/scan-qr-code-flat-icon-with-phone-barcode-illustration_149152-6.jpg" alt="Card image cap" style="height:286px">
                   <div class="card-body">
@@ -244,10 +366,9 @@ a.button {
                     <a href="/scanQR" class="btn btn-info details">Scan QR</a>
                   </div>
                 </div>
-    </div>
-    
-  
-  <div class="col-lg-4" style="margin-top:30px;margin-left:0px">
+            </div>
+            
+             <div class="col-lg-4" style="margin-top:30px;margin-left:140px">
                 <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                   <img class="card-img-top" src="https://layout.fm/artwork-spec.png" alt="Card image cap" style="height:286px">
                   <div class="card-body">
@@ -256,16 +377,25 @@ a.button {
                     <a href="/viewLayout" class="btn btn-info details">View Floor layout</a>
                   </div>
                 </div>
+            </div>
+            
+            <div class="col-lg-4" style="margin-top:30px">
+                <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                  <img class="card-img-top" src="https://static.vecteezy.com/system/resources/previews/002/076/563/non_2x/user-manual-book-flat-concept-vector.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Edit Image Layout</h5>
+                    <p class="card-text">Help Guide to understand the functionality of the website and use it efficiently.</p>
+                    <a href="/helpguide" class="btn btn-info layout">Help Guide</a>
+                  </div>
+                </div>
+            </div>
+            
+            
     </div>
-  
-  </div>
+    </div>
+      
 
-    </header>
-</div>
-
- 
-
-<footer class="page-footer font-small pt-4" style="background:#343a40;padding-bottom:20px;padding-left:40%;margin-top:400px">
+<footer class="page-footer font-small pt-4" style="background:#343a40;padding-bottom:20px;padding-left:40%;margin-top:100px">
 
   <div class="container-fluid text-center text-md-left" style="text-align:center">
 
@@ -290,6 +420,13 @@ a.button {
 
 </footer>
 <script>
+
+$(document).ready(function() {
+  $(".notification-drop .item").on('click',function() {
+    $(this).find('ul').toggle();
+  });
+});
+
   $(document).scroll(function() {
   var scroll = $(this).scrollTop();
   if (scroll >= 150) {

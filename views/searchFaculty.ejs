@@ -3457,22 +3457,30 @@ body {
         </style>
     </head>
     <body>
-           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-           <a class="navbar-brand" href="#"><strong>Occupancy Chart Generator</strong></a>
+           <a class="navbar-brand" href="/studentDashboard"><strong>Occupancy Chart Generator</strong></a>
+           
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  
+  
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-   
-  
 	
 	<% if(!currentUser){ %>
             <a class="btn btn-primary" href="/login" role="button">Login</a>
             <%} else{ %>
-            <a href="#"  style="color:#ffffff;margin-right:18px;margin-left:700px"> <%= currentUser.username %></a>
-            <a class="btn btn-info" href="/logout" role="button">Logout</a>
+            
+            <a href="/reportissue"  style="color:#ffffff;margin-left:20px;"> ReportBugs</a>
+            <a href="/FAQ"  style="color:#ffffff;margin-left:20px;">FAQ</a>
+              <a href="/helpguide"  style="color:#ffffff;margin-left:20px;">HelpGuide</a>
+            <a href="/suggestions"  style="color:#ffffff;margin-left:20px;">RateUs</a>
+            <a href="/aboutus"  style="color:#ffffff;margin-right:250px;margin-left:20px">AboutUs</a>
+            
+            <a href="#"  style="color:#ffffff;margin-left:0px;"><%=currentUser.username%></a>
+            <a class="btn btn-info" href="/logout" role="button" style="margin-left:10px">Logout</a>
             
             <% } %>
 	
@@ -3480,6 +3488,7 @@ body {
 
         </div>
  </nav>
+ 
  
              <% if(error.length>0){%>
 <div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>

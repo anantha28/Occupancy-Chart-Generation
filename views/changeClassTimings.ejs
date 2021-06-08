@@ -3194,6 +3194,104 @@ th, td {
 	bottom: 0px;
 }
 
+#toast {
+    visibility: hidden;
+    max-width: 50px;
+    height: 50px;
+    /*margin-left: -125px;*/
+    margin: auto;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+
+    position: fixed;
+    z-index: 1;
+    left: 0;right:0;
+    bottom: 30px;
+    font-size: 17px;
+    white-space: nowrap;
+}
+#toast #img{
+	width: 50px;
+	height: 50px;
+    
+    float: left;
+    
+    padding-top: 16px;
+    padding-bottom: 16px;
+    
+    box-sizing: border-box;
+
+    
+    background-color: #111;
+    color: #fff;
+}
+#toast #desc{
+
+    
+    color: #fff;
+   
+    padding: 16px;
+    
+    overflow: hidden;
+	white-space: nowrap;
+}
+
+#toast.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes expand {
+    from {min-width: 50px} 
+    to {min-width: 350px}
+}
+
+@keyframes expand {
+    from {min-width: 50px}
+    to {min-width: 350px}
+}
+@-webkit-keyframes stay {
+    from {min-width: 350px} 
+    to {min-width: 350px}
+}
+
+@keyframes stay {
+    from {min-width: 350px}
+    to {min-width: 350px}
+}
+@-webkit-keyframes shrink {
+    from {min-width: 350px;} 
+    to {min-width: 50px;}
+}
+
+@keyframes shrink {
+    from {min-width: 350px;} 
+    to {min-width: 50px;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 60px; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 60px; opacity: 0;}
+}
+
 </style>
 </head>
 <body>
@@ -3207,20 +3305,28 @@ th, td {
 	
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-           <a class="navbar-brand" href="#"><strong>Occupancy Chart Generator</strong></a>
+           <a class="navbar-brand" href="/facultyDashboard"><strong>Occupancy Chart Generator</strong></a>
+           
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  
+  
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-   
-  
 	
 	<% if(!currentUser){ %>
             <a class="btn btn-primary" href="/login" role="button">Login</a>
             <%} else{ %>
-            <a href="#"  style="color:#ffffff;margin-right:18px;margin-left:700px"> <%= currentUser.username %></a>
-            <a class="btn btn-info" href="/logout" role="button">Logout</a>
+            
+            <a href="/reportissue"  style="color:#ffffff;margin-left:20px;"> ReportBugs</a>
+            <a href="/FAQ"  style="color:#ffffff;margin-left:20px;">FAQ</a>
+              <a href="/helpguide"  style="color:#ffffff;margin-left:20px;">HelpGuide</a>
+            <a href="/suggestions"  style="color:#ffffff;margin-left:20px;">RateUs</a>
+            <a href="/aboutus"  style="color:#ffffff;margin-right:250px;margin-left:20px">About</a>
+            
+            <a href="#"  style="color:#ffffff;margin-left:0px;"><%=currentUser.username%></a>
+            <a class="btn btn-info" href="/logout" role="button" style="margin-left:10px">Logout</a>
             
             <% } %>
 	
@@ -3228,6 +3334,7 @@ th, td {
 
         </div>
  </nav>
+ 
  
              <% if(error.length>0){%>
 <div class="alert alert-danger container" style="margin-top:0px;"><%=error%></div>
@@ -3241,7 +3348,7 @@ th, td {
 		  
 		  
 			<div class="wrap-table100">
-				<h4 style="text-align:center"><strong>Select a cell to change its class timings</strong></h4>
+				
 
 				<div class="table100 ver6 m-b-110">
 					<table data-vertable="ver6">
@@ -3500,6 +3607,15 @@ th, td {
 		</div>
 	</div>
 	
+	<h2>Toast</h2>
+<p>Click on the button to show the Toast. It will disappear after 5 seconds.</p>
+
+<button onclick="launch_toast()">Show Toast</button>
+
+<div id="toast"><div id="img">Alert</div><div id="desc">Click on a cell to replace its timings</div></div>
+
+<!-- http://jsfiddle.net/m8x1g0q8/ -->
+	
 	<footer class="page-footer font-small pt-4" style="background:#343a40;margin-top:80px;padding-bottom:20px;padding-left:40%">
 
   <div class="container-fluid text-center text-md-left" style="text-align:center">
@@ -3532,6 +3648,14 @@ th, td {
 setTimeout(function() {
     $('.alert-danger').fadeOut('fast');
 }, 40000);
+
+
+$( document ).ready(function() {
+    var x = document.getElementById("toast")
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 7000);
+}); 
+   
 
 </script>
 
