@@ -1116,9 +1116,6 @@ app.get("/deleteFacPeriod/:time/:facID",isLoggedIn,(req,res)=>{
 //**********UPDATE or add subjects to already exiting class**************
 
 
-/*app.get("/updateClassTimeTable",(req,res)=>{
-    res.render("updateClassTimeTable.ejs");
-});*/
 
 app.get("/newSubject/:year/:section",(req,res)=>{ ///************add new subjects to existing class**********////
     TimeTable.findOne({year:req.params.year,section:req.params.section},(err,newT)=>{
