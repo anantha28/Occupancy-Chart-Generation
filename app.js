@@ -898,7 +898,7 @@ app.post("/adminNewSubject/:id",(req,res)=>{
 });
 });
 
-
+//
 app.get("/adminNewSubjectNext/:numberOfClass/:id",(req,res)=>{
     var id=req.params.id;
     var numberOfClass=parseInt(req.params.numberOfClass);//*********number of subjects stored************
