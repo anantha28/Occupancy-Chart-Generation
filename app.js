@@ -1779,6 +1779,17 @@ app.post("/reportissue",(req,res)=>{
     req.flash("success","Bug Report Submitted");
     res.redirect("/reportissue");
 });
+app.get("/testDownload/:section/:year",(req,res)=>{
+    var section=req.params.section;
+    var year=parseInt(req.params.year);
+    TimeTable.findOne({section:section,year:year},(err,tim)=>{
+        if(err) console.log(err);
+        else{
+            res.render("testDownload.ejs",{tim:tim});
+        }
+    });
+});
+
 //
 
 ///****************creating and deleting room lists*************************************
